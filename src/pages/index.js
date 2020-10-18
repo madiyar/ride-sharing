@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { Icon } from 'components';
 
 const Pages = () => {
   return (
     <Switch>
       <Route path="/" exact>
-        HELLO
+        <Icon.Camera />
       </Route>
     </Switch>
   )
