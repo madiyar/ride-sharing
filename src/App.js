@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import configureStore from 'store';
 import theme from 'styles';
+import Pages from 'pages';
 
 function App() {
   return (
@@ -11,9 +12,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <Switch>
-            <Route path="/" exact>HELLO</Route>
-          </Switch>
+          <Pages />
         </Router>
       </ThemeProvider>
     </Provider>
