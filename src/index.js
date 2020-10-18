@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import * as firebase from 'firebase';
+import App from './App';
+import './styles/index.css';
 
 firebase.initializeApp({
   apiKey: "AIzaSyDvo4Je1g1TC1Xgt6iuf2HL5ya8A-3R8kw",
