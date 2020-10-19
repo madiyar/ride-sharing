@@ -1,14 +1,28 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Icon } from 'components';
+import { Container, createStyles, makeStyles } from '@material-ui/core';
+import { Header } from 'components';
+
+import Home from './Home';
+
+const useStyles = makeStyles(theme => createStyles({
+  container: {
+    marginTop: theme.spacing(8)
+  }
+}));
 
 const Pages = () => {
+  const classes = useStyles();
+
   return (
-    <Switch>
-      <Route path="/" exact>
-        <Icon.Camera />
-      </Route>
-    </Switch>
+    <>
+      <Header />
+      <Container maxWidth="md" className={classes.container} component="main">
+        <Switch>
+          <Route path="/" exact component={Home} />
+        </Switch>
+      </Container>
+    </>
   )
 }
 
