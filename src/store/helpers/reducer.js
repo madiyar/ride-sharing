@@ -11,6 +11,15 @@ const initialState = {
   }
 };
 
+const objToArray = payload => {
+  return payload !== null ? Object.keys(payload).map(key => {
+    return {
+      ...payload[key],
+      id: key
+    }
+  }) : [];
+};
+
 export default handleActions({
   [GET_CITIES + LOADING]: (state, { payload }) => ({
     ...state,
@@ -31,7 +40,7 @@ export default handleActions({
     cities: {
       ...state.cities,
       loading: false,
-      data: payload
+      data: objToArray(payload)
     }
   }),
 }, initialState);

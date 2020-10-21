@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, createStyles, InputAdornment, makeStyles, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { DatePicker } from '@material-ui/pickers';
 import { Icon } from 'components';
+import { getCities } from 'store/helpers/actions';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => createStyles({
   card: {
@@ -16,35 +18,17 @@ const useStyles = makeStyles(theme => createStyles({
   }
 }))
 
-const cities = [
-  {
-    name: 'Almaty',
-    state: 'Almaty',
-  },
-  {
-    name: 'Taldykorgan',
-    state: 'Almaty',
-  },
-  {
-    name: 'Oskemen',
-    state: 'VKO',
-  },
-  {
-    name: 'Semei',
-    state: 'VKO',
-  },
-];
-
-const SelectCity = ({ cities, label }) => {
+const SelectCity = ({ cities, label, loading }) => {
   return  (
     <Autocomplete
       options={cities}
       getOptionLabel={(option) => option.name}
-      groupBy={(option) => option.state}
+      groupBy={(option) => option.region}
       noOptionsText={'Қала табылмады'}
-      // loadingText={'Қалалар тізімі жүктеліп жатыр...'}
-      // loading={true}
+      loadingText={'Қалалар тізімі жүктеліп жатыр...'}
+      loading={loading}
       fullWidth
+      autoHighlight
       renderInput={(params) => (
         <TextField
           {...params}
@@ -65,9 +49,15 @@ const SelectCity = ({ cities, label }) => {
   )
 }
 
-const Filter = () => {
+const Filter = ({ loading, cities, getCities }) => {
   const classes = useStyles();
   const [selectedDate, handleDateChange] = useState(new Date());
+
+  useEffect(() => {
+    if (!cities.length) {
+      getCities();
+    }
+  }, [cities]);
 
   return (
     <Card className={classes.card}>
@@ -78,6 +68,7 @@ const Filter = () => {
       <SelectCity
         cities={cities}
         label="Қайда?"
+        loading={loading}
       />
       <TextField
         label="Неше адам?"
@@ -85,6 +76,7 @@ const Filter = () => {
         variant="outlined"
         margin="normal"
         defaultValue={1}
+        disabled={loading}
         InputProps={{
           inputProps: { min: 1, max: 10 },
           startAdornment: (
@@ -105,14 +97,16 @@ const Filter = () => {
         value={selectedDate}
         label="Қай күні?"
         onChange={handleDateChange}
-        disabled
+        disabled={loading}
+        disablePast
         fullWidth
       />
       <Button
         variant="contained"
         color="primary"
-        startIcon={<Icon.Search size={16} />}
+        startIcon={loading ? <Icon.Loader size={16} /> : <Icon.Search size={16} />}
         className={classes.button}
+        disabled={loading}
       >
         Іздеу
       </Button>
@@ -120,4 +114,9 @@ const Filter = () => {
   )
 }
 
-export default Filter;
+const mapState = ({ helpers }) => ({
+  loading: helpers.cities.loading,
+  cities: helpers.cities.data,
+});
+
+export default connect(mapState, { getCities })(Filter);
