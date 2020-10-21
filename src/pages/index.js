@@ -7,7 +7,7 @@ import Home from './Home';
 
 const useStyles = makeStyles(theme => createStyles({
   container: {
-    marginTop: theme.spacing(8)
+    marginTop: theme.spacing(11)
   }
 }));
 

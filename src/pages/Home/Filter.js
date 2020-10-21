@@ -91,7 +91,7 @@ const Filter = ({ loading, cities, getCities }) => {
       <DatePicker
         showTodayButton
         inputVariant="outlined"
-        format="DD/MM/YYYY"
+        format="DD.MM.YYYY"
         ampm={false}
         margin="normal"
         value={selectedDate}

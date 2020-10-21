@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { AppBar, createStyles, makeStyles, Tab, Tabs, Toolbar, Typography } from '@material-ui/core';
+import { Icon } from 'components';
 
 const useStyles = makeStyles(theme => createStyles({
   header: {
     justifyContent: 'space-between',
-    minHeight: theme.spacing(6)
+    minHeight: theme.spacing(8),
+    background: '#f6e7da'
   },
   tab: {
-    textTransform: 'none'
+    minHeight: theme.spacing(8),
+    textTransform: 'none',
+    '& .MuiTab-wrapper': {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      '& span': {
+        marginLeft: theme.spacing(1)
+      }
+    }
   }
 }));
 
 const links = [
-  { label: 'Іздеу', to: '/' },
-  { label: 'Тіркелу', to: '/signup' },
-  { label: 'Кіру', to: '/signin' },
+  { label: 'Іздеу', to: '/', icon: <Icon.Search size={16} /> },
+  { label: 'Авторизация', to: '/login', icon: <Icon.User size={16} /> },
 ];
 
 const Header = ({ location }) => {
@@ -25,11 +35,12 @@ const Header = ({ location }) => {
   return (
     <AppBar
       position="fixed"
-      color="transparent"
-      elevation={0}
+      elevation={1}
     >
       <Toolbar className={classes.header}>
-        <Typography>Ride Share</Typography>
+        <Typography>
+          <Link to="/">Ride Share</Link>
+        </Typography>
         <Tabs
           value={value}
           indicatorColor="primary"
@@ -40,7 +51,7 @@ const Header = ({ location }) => {
             <Tab
               key={i}
               value={link.to}
-              label={link.label}
+              label={<>{link.icon} <span>{link.label}</span></>}
               className={classes.tab}
               component={Link}
               to={link.to}
