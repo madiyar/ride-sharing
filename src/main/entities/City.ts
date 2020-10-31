@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Trip } from "./Trip";
 
 @Entity({ name: 'cities' })
 export class City {
@@ -10,4 +11,10 @@ export class City {
 
   @Column()
   region: string;
+
+  @OneToMany(type => Trip, trip => trip.fromId)
+  fromTrips: Promise<Trip[]>;
+
+  @OneToMany(type => Trip, trip => trip.toId)
+  toTrips: Promise<Trip[]>;
 }
