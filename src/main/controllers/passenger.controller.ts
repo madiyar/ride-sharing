@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from "@nestjs/common";
-import { UserProvider } from "../providers/user.provider";
+import { PassengerProvider } from "../providers/passenger.provider";
 
-@Controller('users')
-export class UserController {
+@Controller('passengers')
+export class PassengerController {
   constructor(
-    private readonly rootProvider: UserProvider,
+    private readonly rootProvider: PassengerProvider,
   ) {}
 
   @Get()
@@ -15,11 +15,6 @@ export class UserController {
   @Get(':id')
   getById(@Param('id') id: number) {
     return this.rootProvider.getById(id);
-  }
-
-  @Post('auth')
-  userAuth(@Body() data) {
-    return this.rootProvider.getOne({where: {phone: data.phone, password: data.password}});
   }
 
   @Post()

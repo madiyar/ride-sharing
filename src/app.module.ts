@@ -6,18 +6,24 @@ import { MainModule } from './main/main.module';
 
 import { City } from './main/entities/City';
 import { User } from './main/entities/User';
+import { Trip } from './main/entities/Trip';
+import { Passenger } from './main/entities/Passenger';
 
 @Module({
   imports: [
+    // DO'NT MODIFY MY DATABASE PLEASSEEE ^_^
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '127.0.0.1',
-      username: 'root',
-      password: '',
-      database: 'diplom',
+      host: 'den1.mysql5.gear.host',
+      port: 3306,
+      username: 'kolik',
+      password: 'Ij4q72-3H_Xf',
+      database: 'kolik',
       entities: [
         City,
-        User
+        User,
+        Trip,
+        Passenger
       ],
       synchronize: true,
     }),
