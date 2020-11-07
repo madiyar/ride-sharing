@@ -9,6 +9,7 @@ export class CityController {
 
   @Get()
   getAll() {
+    console.log('cities')
     return this.rootProvider.getAll();
   }
 
