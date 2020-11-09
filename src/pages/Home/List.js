@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Button, Card, CardActions, createStyles, Grid, List, ListItem, ListItemAvatar, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import { Icon } from 'components';
+import { connect } from 'react-redux';
+import { getTrips } from 'store/trips/actions';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => createStyles({
   title: {
@@ -35,48 +38,56 @@ const Item = ({ icon, title, value }) => {
   );
 };
 
-const ShareList = () => {
+const ShareList = ({ trips, loading, getTrips }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    if (!trips.length) {
+      getTrips();
+    }
+  }, [trips]);
 
   return (
     <>
-      <Card elevation={2}>
-        <Grid container spacing={3} alignItems="center">
-          <Grid item xs={7}>
-            <Typography className={classes.title} variant="h5">
-              Алматы <Icon.ArrowRight size={20} /> Семей
-            </Typography>
-            <List>
-              <Item
-                icon={<Icon.Calendar />}
-                title="Шығу уақыты"
-                value="Jan 9, 2014"
-              />
-              <Item
-                icon={<Icon.Users />}
-                title="Бос орын саны"
-                value="5"
-              />
-              <Item
-                icon={<Icon.DollarSign />}
-                title="Бағасы"
-                value="5000 тг/орын"
-              />
-            </List>
+      {trips.map(trip => (
+        <Card elevation={2} key={`trip-${trip.id}`}>
+          <Grid container spacing={3} alignItems="center">
+            <Grid item xs={7}>
+              <Typography className={classes.title} variant="h5">
+                {trip?.from?.name} <Icon.ArrowRight size={20} /> {trip?.to?.name}
+              </Typography>
+              <List>
+                <Item
+                  icon={<Icon.Calendar />}
+                  title="Шығу уақыты"
+                  value={moment(trip?.day).format('DD.MM.YYYY, H:mm')}
+                />
+                <Item
+                  icon={<Icon.Users />}
+                  title="Бос орын саны"
+                  value={trip?.seats}
+                />
+                <Item
+                  icon={<Icon.DollarSign />}
+                  title="Бағасы"
+                  value={`${trip?.price} тг/орын`}
+                />
+              </List>
+            </Grid>
+            <Grid item xs={5} className={classes.user}>
+              <Avatar className={classes.avatar}>
+                <Icon.User size={70} />
+              </Avatar>
+              <Typography>{trip?.driver?.firstName} {trip?.driver?.lastName}</Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={5} className={classes.user}>
-            <Avatar className={classes.avatar}>
-              <Icon.User size={70} />
-            </Avatar>
-            <Typography>Мадияр Болатов</Typography>
-          </Grid>
-        </Grid>
-        <CardActions>
-          <Button size="small" color="primary" startIcon={<Icon.Phone size={16} />}>
-            Телефон нөмірі
-          </Button>
-        </CardActions>
-      </Card>
+          <CardActions>
+            <Button size="small" color="primary" startIcon={<Icon.Phone size={16} />}>
+              Телефон нөмірі
+            </Button>
+          </CardActions>
+        </Card>
+      ))}
       <Pagination
         count={10}
         variant="outlined"
@@ -88,4 +99,9 @@ const ShareList = () => {
   )
 }
 
-export default ShareList;
+const mapState = ({ trips }) => ({
+  loading: trips.trips.loading,
+  trips: trips.trips.data,
+});
+
+export default connect(mapState, { getTrips })(ShareList);

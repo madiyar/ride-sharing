@@ -70,24 +70,6 @@ const Filter = ({ loading, cities, getCities }) => {
         label="Қайда?"
         loading={loading}
       />
-      <TextField
-        label="Неше адам?"
-        type="number"
-        variant="outlined"
-        margin="normal"
-        defaultValue={1}
-        disabled={loading}
-        InputProps={{
-          inputProps: { min: 1, max: 10 },
-          startAdornment: (
-            <InputAdornment position="start">
-              <Icon.Users size={16} />
-            </InputAdornment>
-          ),
-        }}
-        fullWidth
-      />
-      
       <DatePicker
         showTodayButton
         inputVariant="outlined"
