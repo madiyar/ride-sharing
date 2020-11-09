@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { AppBar, createStyles, makeStyles, Tab, Tabs, Toolbar, Typography } from '@material-ui/core';
+import React from 'react';
+import { AppBar, Badge, createStyles, IconButton, makeStyles, TextField, Toolbar } from '@material-ui/core';
 import { Icon } from 'components';
 
 const useStyles = makeStyles(theme => createStyles({
@@ -8,6 +7,10 @@ const useStyles = makeStyles(theme => createStyles({
     justifyContent: 'space-between',
     minHeight: theme.spacing(8),
     background: '#f6e7da'
+  },
+  left: {
+    display: 'flex',
+    alignItems: 'center',
   },
   tab: {
     minHeight: theme.spacing(8),
@@ -23,44 +26,46 @@ const useStyles = makeStyles(theme => createStyles({
   }
 }));
 
-const links = [
-  { label: 'Іздеу', to: '/', icon: <Icon.Search size={16} /> },
-  { label: 'Авторизация', to: '/login', icon: <Icon.User size={16} /> },
-];
-
-const Header = ({ location }) => {
+const Header = ({ openSidebar, isMobile }) => {
   const classes = useStyles();
-  const [value, setValue] = useState(location?.pathname || '/');
-
   return (
     <AppBar
-      position="fixed"
+      position="relative"
       elevation={1}
     >
       <Toolbar className={classes.header}>
-        <Typography>
-          <Link to="/">Ride Share</Link>
-        </Typography>
-        <Tabs
-          value={value}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={(e, value) => setValue(value)}
-        >
-          {links.map((link, i) => (
-            <Tab
-              key={i}
-              value={link.to}
-              label={<>{link.icon} <span>{link.label}</span></>}
-              className={classes.tab}
-              component={Link}
-              to={link.to}
-            />
-          ))}
-        </Tabs>
+        <div className={classes.left}>
+          {isMobile && (
+            <IconButton style={{ marginRight: 16 }} onClick={() => openSidebar()}>
+              <Icon.Menu />
+            </IconButton>
+          )}
+          <TextField
+            variant="outlined"
+            label="Іздеу"
+            size="small"
+          />
+        </div>
+        <div>
+            <IconButton>
+              <Badge
+                color="primary"
+                variant="dot"
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <Icon.Bell />
+              </Badge>
+            </IconButton>
+          <IconButton>
+            <Icon.User />
+          </IconButton>
+        </div>
       </Toolbar>
     </AppBar>
   )
 }
 
-export default withRouter(Header);
+export default Header;

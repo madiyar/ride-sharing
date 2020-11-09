@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Avatar, Button, Card, CardActions, createStyles, Grid, List, ListItem, ListItemAvatar, ListItemText, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, CardActions, CircularProgress, createStyles, Grid, List, ListItem, ListItemAvatar, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import { Icon } from 'components';
+import { Icon, Loader } from 'components';
 import { connect } from 'react-redux';
 import { getTrips } from 'store/trips/actions';
 import moment from 'moment';
@@ -49,6 +49,7 @@ const ShareList = ({ trips, loading, getTrips }) => {
 
   return (
     <>
+      <Loader open={loading} />
       {trips.map(trip => (
         <Card elevation={2} key={`trip-${trip.id}`}>
           <Grid container spacing={3} alignItems="center">
