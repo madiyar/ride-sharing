@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Avatar, Button, Card, CardActions, CircularProgress, createStyles, Grid, List, ListItem, ListItemAvatar, ListItemText, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, CardActions, createStyles, Grid, List, ListItem, ListItemAvatar, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import { Icon, Loader } from 'components';
 import { connect } from 'react-redux';

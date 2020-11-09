@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import clsx from 'clsx';
 
-import { Button, useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { Header, Sidebar } from 'components';
 
