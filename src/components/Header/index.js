@@ -6,7 +6,6 @@ const useStyles = makeStyles(theme => createStyles({
   header: {
     justifyContent: 'space-between',
     minHeight: theme.spacing(8),
-    background: '#f6e7da'
   },
   left: {
     display: 'flex',
@@ -31,7 +30,8 @@ const Header = ({ openSidebar, isMobile }) => {
   return (
     <AppBar
       position="relative"
-      elevation={1}
+      elevation={0}
+      color="transparent"
     >
       <Toolbar className={classes.header}>
         <div className={classes.left}>

@@ -5,7 +5,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#FF6D00',
+      main: '#0880AE',
     },
     secondary: {
       main: '#19857b',
@@ -14,7 +14,7 @@ const theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      default: '#F7F7F7',
+      default: '#EBF4F8',
       sidebar: '#FFFFFF'
     },
   },
@@ -22,6 +22,17 @@ const theme = createMuiTheme({
     MuiButton: {
       text: {
         textTransform: 'none'
+      }
+    },
+    MuiCard: {
+      root: {
+        borderRadius: '24px',
+        boxShadow: '0px 12px 24px rgba(44, 39, 56, 0.02), 0px 24px 48px rgba(44, 39, 56, 0.04)'
+      }
+    },
+    MuiListItemIcon: {
+      root: {
+        minWidth: '40px'
       }
     }
   }
