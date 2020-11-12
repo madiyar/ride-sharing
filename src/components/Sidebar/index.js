@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { createStyles, Drawer, IconButton, List, ListItem, ListItemText, makeStyles } from '@material-ui/core';
 import { Icon } from 'components';
@@ -16,12 +16,21 @@ const links = [
   { label: 'Авторизация', to: '/login', icon: <Icon.PlusCircle /> },
 ];
 
-const Sidebar = ({ location, isMobile, ...rest }) => {
+const Sidebar = ({ location, isMobile, open, onClose }) => {
   const classes = useStyles();
-  const [value, setValue] = useState(location?.pathname || '/');
+  const [activePage, setActivePage] = useState('/');
+
+  useEffect(() => {
+    setActivePage(location?.pathname);
+  }, [location]);
 
   return (
-    <Drawer {...rest} classes={{ paper: classes.drawer }}>
+    <Drawer
+      open={open}
+      onClose={onClose}
+      variant={!isMobile ? 'persistent' : 'temporary'}
+      classes={{ paper: !isMobile ? classes.drawer : '' }}
+    >
       <List>
         <ListItem>
           <IconButton>
@@ -34,7 +43,13 @@ const Sidebar = ({ location, isMobile, ...rest }) => {
       </List>
       <List>
         {links.map(link => (
-          <ListItem button selected={value === link.to}>
+          <ListItem
+            button
+            key={link.to}
+            selected={activePage === link.to}
+            component={Link}
+            to={link.to}
+          >
             <IconButton disableRipple>
               {link.icon}
             </IconButton>

@@ -47,7 +47,6 @@ export default function Pages() {
       <Sidebar
         open={shouldOpenSidebar}
         onClose={handleSidebarClose}
-        variant={isDesktop ? 'persistent' : 'temporary'}
         isMobile={!isDesktop}
       />
       <section className={clsx({

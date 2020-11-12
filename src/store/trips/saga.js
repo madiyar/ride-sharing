@@ -12,7 +12,6 @@ function* getTripsSaga() {
     yield put({
       type: GET_TRIPS + LOADING
     });
-    console.log('safga')
     const payload = yield call(getTrips);
     if (payload) {
       yield put({

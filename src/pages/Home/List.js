@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, createStyles, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, createStyles, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import { Icon, Loader } from 'components';
+import { Icon } from 'components';
 import { connect } from 'react-redux';
 import { getTrips } from 'store/trips/actions';
 import moment from 'moment';
@@ -15,7 +15,9 @@ const useStyles = makeStyles(theme => createStyles({
   },
   button: {
     display: 'flex',
-    alignItems: 'center'
+    textTransform: 'none',
+    alignItems: 'center',
+    borderRadius: '999rem'
   },
   user: {
     display: 'flex',
@@ -48,14 +50,14 @@ const ShareList = ({ trips, loading, getTrips }) => {
     if (!trips.length) {
       getTrips();
     }
-  }, [trips]);
+  }, [trips, getTrips]);
 
   return (
     <>
       <Grid container spacing={3}>
-        {loading && [0,1].map(item => <Grid item md={6} xs={12} key={`loader-${item}`}><LoadingCard /></Grid>)}
+        {loading && [0,1,2,3].map(item => <Grid item lg={6} xs={12} key={`loader-${item}`}><LoadingCard /></Grid>)}
         {trips.map(trip => (
-          <Grid item md={6} xs={12} key={`trip-${trip.id}`}>
+          <Grid item lg={6} xs={12} key={`trip-${trip.id}`}>
             <Card>
               <CardHeader
                 avatar={<Avatar>MD</Avatar>}
@@ -84,17 +86,15 @@ const ShareList = ({ trips, loading, getTrips }) => {
                   />
                 </List>
               </CardContent>
-              <CardActions disableSpacing>
-                <Button className={classes.button}>
+              <CardActions disableSpacing style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button className={classes.button} size="large">
                   <Icon.Phone size={16} />
                   Телефон номірі
                 </Button>
-                <IconButton aria-label="add to favorites">
-                  <Icon.Phone />
-                </IconButton>
-                <IconButton aria-label="share">
-                  <Icon.User />
-                </IconButton>
+                <Button className={classes.button} size="large" variant="outlined">
+                  <Icon.CornerLeftUp size={16} />
+                  Толық көру
+                </Button>
               </CardActions>
             </Card>
           </Grid>
