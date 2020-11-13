@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from "@nestjs/common";
 import { PassengerProvider } from "../providers/passenger.provider";
 import { TripProvider } from "../providers/trip.provider";
+import { NotFoundInterceptor } from "../shared/notfound";
 
 @Controller('trips')
+@UseInterceptors(new NotFoundInterceptor())
 export class TripController {
   constructor(
     private readonly rootProvider: TripProvider,
@@ -31,12 +33,16 @@ export class TripController {
   getById(@Param('id') id: number) {
     const result = new Promise((resolve, reject) => {
       this.rootProvider.getById(id).then(trip => {
-        this.pasProvider.getAll({ where: {tripId: id} }).then(passengers => {
-          resolve({
-            ...trip,
-            passengers: passengers.map(passenger => passenger?.user)
-          });
-        })
+        if (trip === undefined) {
+          resolve(undefined);
+        } else {
+          this.pasProvider.getAll({ where: {tripId: id} }).then(passengers => {
+            resolve({
+              ...trip,
+              passengers: passengers.map(passenger => passenger?.user)
+            });
+          })
+        }
       })
     });
     return result;
