@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 
 import { useMediaQuery } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
-import { Header, Sidebar } from 'components';
+import { Header, NotFound, Sidebar } from 'components';
 
-import Home from './Home';
+import Routes from './Routes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
 export default function Pages() {
   const classes = useStyles();
   const theme = useTheme();
+  const { status } = useSelector(state => ({
+    status: state.helpers?.error?.status
+  }));
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true
   });
@@ -56,11 +59,13 @@ export default function Pages() {
       >
         <Header openSidebar={() => handleSidebarOpen()} isMobile={!isDesktop} />
         <div style={{ padding: 24 }}>
-          <Switch>
-            <Route path="/" exact component={Home} />
-          </Switch>
+          {status === 404 ? (
+            <NotFound />
+          ) : (
+            <Routes />
+          )}
         </div>
       </section>
     </main>
   );
-}
+};

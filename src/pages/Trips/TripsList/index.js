@@ -4,7 +4,7 @@ import List from './List';
 import Filter from './Filter';
 import { Icon } from 'components';
 
-const Home = () => {
+const TripsList = () => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   return (
     <>
@@ -40,4 +40,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default TripsList;
