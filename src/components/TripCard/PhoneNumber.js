@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogContentText,
@@ -19,7 +20,7 @@ export default ({ open, onClose, user }) => (
         {user.firstName} {user.lastName}
       </DialogContentText>
       <DialogContentText style={{ textAlign: 'center '}}>
-        {user.phone}
+        <Button variant="outlined" color="primary" href={`tel:${user.phone}`}>{user.phone}</Button>
       </DialogContentText>
     </DialogContent>
   </Dialog>

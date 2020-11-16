@@ -27,12 +27,12 @@ const TripPage = ({ getTrip, trip, loading }) => {
             <Typography color="textPrimary">Сапар</Typography>
           </Breadcrumbs>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item md={8} xs={12}>
           {(loading || trip) && (
             <TripCard trip={trip} loading={loading} />
           )}
         </Grid>
-        <Grid item xs={4}>
+        <Grid item md={4} xs={12}>
           <Card>
             <CardContent>
               <Typography variant="h6" style={{ display: 'flex', alignItems: 'center' }}>
@@ -56,7 +56,7 @@ const TripPage = ({ getTrip, trip, loading }) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item md={8} xs={12}>
           <Card>
             <CardContent>
               <Typography variant="h6" style={{ display: 'flex', alignItems: 'center' }}>
