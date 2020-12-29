@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from "@nestjs/common";
 import { UserProvider } from "../providers/user.provider";
+import { NotFoundInterceptor } from "../shared/notfound";
 
 @Controller('users')
+@UseInterceptors(new NotFoundInterceptor())
 export class UserController {
   constructor(
     private readonly rootProvider: UserProvider,

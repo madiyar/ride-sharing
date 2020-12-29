@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Badge, IconButton, TextField, Toolbar } from '@material-ui/core';
+import { AppBar, Badge, IconButton, Menu, MenuItem, TextField, Toolbar } from '@material-ui/core';
 import { Icon } from 'components';
 
 import useStyles from './useStyles';
@@ -8,6 +8,26 @@ import LoginForm from './LoginForm';
 const Header = ({ openSidebar, isMobile }) => {
   const classes = useStyles();
   const [openLoginForm, setOpenLoginForm] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const user = localStorage.getItem('user');
+
+  const handleUserClick = (e) => {
+    if (!!user) {
+      setAnchorEl(e.currentTarget);
+    } else {
+      setOpenLoginForm(true);
+    }
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleExit = () => {
+    localStorage.removeItem('user');
+    document.location.reload();
+    handleClose();
+  };
 
   return (
     <>
@@ -42,9 +62,18 @@ const Header = ({ openSidebar, isMobile }) => {
                 <Icon.Bell />
               </Badge>
             </IconButton>
-            <IconButton onClick={() => setOpenLoginForm(true)}>
+            <IconButton onClick={handleUserClick}>
               <Icon.User />
             </IconButton>
+            <Menu
+              keepMounted
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Менің парақшам</MenuItem>
+              <MenuItem onClick={handleExit}>Шығу</MenuItem>
+            </Menu>
           </div>
         </Toolbar>
       </AppBar>

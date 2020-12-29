@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Dialog, DialogContent, DialogTitle, IconButton, Tab, Tabs, TextField, Typography } from '@material-ui/core';
 
 import useStyles from './useStyles';
-import { Icon } from 'components';
+import { Icon, Loader } from 'components';
+import { connect } from 'react-redux';
 
-const LoginForm = ({ open, onClose }) => {
+import { authUser } from 'store/helpers/actions';
+
+const LoginForm = ({
+  open,
+  onClose,
+  user,
+  loading,
+  authUser
+}) => {
   const [tab, setTab] = useState(0);
   const { handleSubmit, register, errors } = useForm();
   const classes = useStyles();
 
   const handleSubmitForm = data => {
-    console.log(data);
+    if (tab === 0) {
+      authUser(data);
+    } else {
+      // register
+      console.log(data);
+    }
   };
+
+  useEffect(() => {
+    if (!!user && !loading && open) {
+      document.location.reload();
+    }
+  }, [user, loading]);
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
@@ -23,6 +43,7 @@ const LoginForm = ({ open, onClose }) => {
         </IconButton>
       </DialogTitle>
       <DialogContent>
+        <Loader open={loading} />
         <Tabs value={tab} onChange={(e, i) => setTab(i)}>
           <Tab label="Кіру" />
           <Tab label="Тіркелу" />
@@ -30,10 +51,10 @@ const LoginForm = ({ open, onClose }) => {
         <form onSubmit={handleSubmit(handleSubmitForm)} className={classes.form}>
           <TextField
             label="Телефон нөмірі"
-            name="phone_number"
+            name="phone"
             inputRef={register({ required: true, validate: value => !!value.trim() })}
-            error={Boolean(errors?.phone_number) || false}
-            helperText={Boolean(errors?.phone_number) && 'Телефон нөмірін еңгізіңіз'}
+            error={Boolean(errors?.phone) || false}
+            helperText={Boolean(errors?.phone) && 'Телефон нөмірін еңгізіңіз'}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -64,4 +85,9 @@ const LoginForm = ({ open, onClose }) => {
   );
 };
 
-export default LoginForm;
+const mapState = ({ helpers }) => ({
+  user: helpers.user,
+  loading: helpers.authFormLoading,
+});
+
+export default connect(mapState, { authUser })(LoginForm);

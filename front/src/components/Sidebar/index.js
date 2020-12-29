@@ -19,10 +19,16 @@ const links = [
 const Sidebar = ({ location, isMobile, open, onClose }) => {
   const classes = useStyles();
   const [activePage, setActivePage] = useState('/');
+  const user = localStorage.getItem('user');
 
   useEffect(() => {
     setActivePage(location?.pathname);
   }, [location]);
+
+  const handleExit = () => {
+    localStorage.removeItem('user');
+    document.location.reload();
+  };
 
   return (
     <Drawer
@@ -60,14 +66,16 @@ const Sidebar = ({ location, isMobile, open, onClose }) => {
         ))}
       </List>
       <List>
-        <ListItem button>
-          <IconButton disableRipple>
-            <Icon.LogOut />
-          </IconButton>
-          {isMobile && (
-            <ListItemText>Шығу</ListItemText>
-          )}
-        </ListItem>
+        {!!user && (
+          <ListItem button onClick={handleExit}>
+            <IconButton disableRipple>
+              <Icon.LogOut />
+            </IconButton>
+            {isMobile && (
+              <ListItemText>Шығу</ListItemText>
+            )}
+          </ListItem>
+        )}
       </List>
     </Drawer>
   );
