@@ -6,14 +6,14 @@ import useStyles from './useStyles';
 import { Icon, Loader } from 'components';
 import { connect } from 'react-redux';
 
-import { authUser } from 'store/helpers/actions';
+import { authUser, signUp } from 'store/helpers/actions';
 
 const LoginForm = ({
   open,
   onClose,
-  user,
   loading,
-  authUser
+  authUser,
+  signUp
 }) => {
   const [tab, setTab] = useState(0);
   const { handleSubmit, register, errors } = useForm();
@@ -23,16 +23,9 @@ const LoginForm = ({
     if (tab === 0) {
       authUser(data);
     } else {
-      // register
-      console.log(data);
+      signUp(data);
     }
   };
-
-  useEffect(() => {
-    if (!!user && !loading && open) {
-      document.location.reload();
-    }
-  }, [user, loading]);
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
@@ -49,6 +42,30 @@ const LoginForm = ({
           <Tab label="Тіркелу" />
         </Tabs>
         <form onSubmit={handleSubmit(handleSubmitForm)} className={classes.form}>
+          {tab === 1 && (
+            <>
+              <TextField
+                label="Фамилия"
+                name="lastName"
+                inputRef={register({ required: true, validate: value => !!value.trim() })}
+                error={Boolean(errors?.lastName) || false}
+                helperText={Boolean(errors?.lastName) && 'Фамилия еңгізіңіз'}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+              />
+              <TextField
+                label="Атыңыз"
+                name="firstName"
+                inputRef={register({ required: true, validate: value => !!value.trim() })}
+                error={Boolean(errors?.firstName) || false}
+                helperText={Boolean(errors?.firstName) && 'Атыңызды еңгізіңіз'}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+              />
+            </>
+          )}
           <TextField
             label="Телефон нөмірі"
             name="phone"
@@ -86,8 +103,7 @@ const LoginForm = ({
 };
 
 const mapState = ({ helpers }) => ({
-  user: helpers.user,
   loading: helpers.authFormLoading,
 });
 
-export default connect(mapState, { authUser })(LoginForm);
+export default connect(mapState, { authUser, signUp })(LoginForm);
