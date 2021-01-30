@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => createStyles({
 
 const links = [
   { label: 'Іздеу', to: '/', icon: <Icon.Map /> },
-  { label: 'Авторизация', to: '/login', icon: <Icon.PlusCircle /> },
+  { label: 'Қосу', to: '/add', icon: <Icon.PlusCircle /> },
 ];
 
 const Sidebar = ({ location, isMobile, open, onClose }) => {
