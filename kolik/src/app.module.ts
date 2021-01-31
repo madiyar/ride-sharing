@@ -6,6 +6,7 @@ import { MainModule } from './main/main.module';
 
 import { City } from './main/entities/City';
 import { User } from './main/entities/User';
+import { UserTrips } from './main/entities/UserTrips';
 import { Trip } from './main/entities/Trip';
 import { Passenger } from './main/entities/Passenger';
 
@@ -23,7 +24,8 @@ import { Passenger } from './main/entities/Passenger';
         City,
         User,
         Trip,
-        Passenger
+        Passenger,
+        UserTrips
       ],
       synchronize: true,
     }),

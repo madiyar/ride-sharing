@@ -2,20 +2,22 @@ import React from 'react';
 import { Controller } from 'react-hook-form';
 import { Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
 
-const PhoneNumber = ({ control }) => (
+const Price = ({ control }) => (
   <Grid item xs={4}>
     <Card>
       <CardContent>
-        <Typography variant="h4">Телефон нөміріңіз:</Typography>
+        <Typography variant="h4">Бағасы</Typography>
         <Controller
           as={TextField}
-          label="Телефон нөміріңіз"
-          name="phone_number"
+          label="Бағасы"
+          name="price"
           control={control}
-          rules={{ required: true, minLength: 6, maxLength: 200, validate: value => !!value.trim() }}
+          rules={{ required: true, min: 0, max: 10000, minLength: 1, maxLength: 5, validate: value => Number(value) }}
           margin="normal"
           variant="outlined"
+          type="number"
           InputLabelProps={{ shrink: true }}
+          InputProps={{ inputProps: { min: 1, max: 10000 } }}
           fullWidth
         />
       </CardContent>
@@ -23,4 +25,4 @@ const PhoneNumber = ({ control }) => (
   </Grid>
 );
 
-export default PhoneNumber;
+export default Price;

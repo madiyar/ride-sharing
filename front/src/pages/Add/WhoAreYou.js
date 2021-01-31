@@ -14,14 +14,14 @@ const WhoAreYou = ({ control }) => (
           as={
             <RadioGroup>
               <FormControlLabel
-                value="passenger"
-                control={<Radio />}
-                label="Жолаушы"
-              />
-              <FormControlLabel
                 value="driver"
                 control={<Radio />}
                 label="Жүргізуші"
+              />
+              <FormControlLabel
+                value="passenger"
+                control={<Radio />}
+                label="Жолаушы"
               />
             </RadioGroup>
           }

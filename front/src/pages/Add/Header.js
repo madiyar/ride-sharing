@@ -3,6 +3,7 @@ import { Grid, Typography } from '@material-ui/core';
 
 const Header = () => (
   <Grid
+    item
     xs={12}
     style={{
       backgroundImage: `url(${process.env.PUBLIC_URL}/bg.svg)`,
