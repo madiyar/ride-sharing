@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Button, Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
@@ -11,10 +12,12 @@ import Day from './Day';
 import Seats from './Seats';
 import Price from './Price';
 
-const AddPage = () => {
+import { addTrip } from 'store/trips/actions';
+
+const AddPage = ({ addTrip }) => {
   const { control, handleSubmit, watch, setValue, register } = useForm({
     defaultValues: {
-      user: 'driver',
+      user_type: 'driver',
       from: '',
       to: '',
       day: moment().format('YYYY-MM-DD'),
@@ -22,13 +25,32 @@ const AddPage = () => {
       price: 1,
     }
   });
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     register({ name: 'day', required: true, validate: val => !!val.trim() });
   }, []);
 
   const onSubmit = data => {
-    console.log(data);
+    if (data?.user_type === 'driver') {
+      addTrip({
+        user_type: data?.user_type,
+        day: data?.day,
+        seats: data?.seats,
+        price: data?.price,
+        driverId: user?.id,
+        fromId: data?.from.id,
+        toId: data?.to.id
+      });
+    } else if (data?.user_type === 'passenger') {
+      addTrip({
+        user_type: data?.user_type,
+        day: data?.day,
+        userId: user?.id,
+        fromId: data?.from.id,
+        toId: data?.to.id
+      });
+    }
   };
 
   return (
@@ -49,7 +71,7 @@ const AddPage = () => {
           city={watch('from')}
         />
         <Day value={watch('day')} setValue={day => setValue('day', day)} />
-        {watch('user') === 'driver' && (
+        {watch('user_type') === 'driver' && (
           <>
             <Seats control={control} />
             <Price control={control} />
@@ -75,4 +97,4 @@ const AddPage = () => {
   );
 };
 
-export default AddPage;
+export default connect(null, { addTrip })(AddPage);

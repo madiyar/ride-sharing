@@ -1,14 +1,17 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import {
   GET_TRIP,
-  GET_TRIPS
+  GET_TRIPS,
+  ADD_TRIP
 } from './constants';
 import { DONE, LOADING, FAIL } from '../constants';
 import {
   getTrips,
-  getTrip
+  getTrip,
+  addTrip,
+  addUserTrip
 } from './api';
-import { createError } from 'lib/helpers';
+import { createError, history } from 'lib/helpers';
 
 function* getTripsSaga() {
   try {
@@ -51,7 +54,35 @@ function* getTripSaga({ payload }) {
   }
 }
 
+function* addTripSaga({ payload }) {
+  try {
+    yield put({
+      type: ADD_TRIP + LOADING
+    });
+    let result;
+    const { user_type, ...body } = payload;
+    if (user_type === 'driver') {
+      result = yield call(addTrip, body);
+    } else {
+      result = yield call(addUserTrip, body);
+    }
+    if (result) {
+      yield put({
+        type: ADD_TRIP + DONE,
+        payload: result
+      });
+      history.push(`/trip/${result?.id}`);
+    }
+  } catch (e) {
+    yield put(createError(e));
+    yield put({
+      type: ADD_TRIP + FAIL,
+    });
+  }
+}
+
 export default function* tripsSaga() {
   yield takeLatest(GET_TRIPS, getTripsSaga);
   yield takeLatest(GET_TRIP, getTripSaga);
+  yield takeLatest(ADD_TRIP, addTripSaga);
 }

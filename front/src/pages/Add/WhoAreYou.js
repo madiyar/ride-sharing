@@ -10,7 +10,7 @@ const WhoAreYou = ({ control }) => (
         <Controller
           rules={{ required: true }}
           control={control}
-          name="user"
+          name="user_type"
           as={
             <RadioGroup>
               <FormControlLabel

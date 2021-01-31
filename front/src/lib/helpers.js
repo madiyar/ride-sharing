@@ -1,5 +1,9 @@
+import { createBrowserHistory } from 'history';
+
 import { DONE } from "store/constants";
 import { SET_ERROR } from "store/helpers/constants";
+
+export const history = createBrowserHistory();
 
 export const getUserInitials = (firstName, lastName) => {
   return `${firstName.charAt(0)}${lastName.charAt(0)}`
