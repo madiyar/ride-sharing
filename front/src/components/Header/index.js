@@ -77,7 +77,7 @@ const Header = ({ openSidebar, isMobile }) => {
               }}
               startIcon={<Icon.User />}
             >
-              {user.firstName}
+              {user?.firstName || 'Кіру'}
             </Button>
             <Menu
               keepMounted
