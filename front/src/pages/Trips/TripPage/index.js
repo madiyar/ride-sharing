@@ -16,6 +16,13 @@ const TripPage = ({ getTrip, trip, loading }) => {
     }
   }, [tripId, getTrip]);
 
+  useEffect(() => {
+    if (tripId) {
+      global.VK.init({apiId: 7765923, onlyWidgets: true});
+      global.VK.Widgets.Comments(`vk_comments_trip${tripId}`, {limit: 10, attach: "*"}, `trip${tripId}`);
+    }
+  }, [tripId]);
+
   return (
     <>
       <Grid container spacing={3}>
@@ -63,6 +70,7 @@ const TripPage = ({ getTrip, trip, loading }) => {
                 <Icon.MessageCircle style={{ marginRight: '8px' }} />
                 Пікірлер
               </Typography>
+              {tripId && <div id={`vk_comments_trip${tripId}`}></div>}
             </CardContent>
           </Card>
         </Grid>
