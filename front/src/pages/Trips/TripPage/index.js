@@ -13,6 +13,7 @@ import Map from './Map';
 
 const TripPage = ({ getTrip, trip, loading }) => {
   const { tripId } = useParams();
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     if (tripId) {
@@ -55,7 +56,7 @@ const TripPage = ({ getTrip, trip, loading }) => {
         </Grid>
         {/* SIDEBAR */}
         <Grid item md={4} xs={12}>
-          <Passengers list={trip?.passengers} seats={trip?.seats} />
+          <Passengers list={trip?.passengers} seats={trip?.seats} user={user} />
           <Map city={trip?.to?.name} url={trip?.to?.map} loading={loading} />
         </Grid>
       </Grid>

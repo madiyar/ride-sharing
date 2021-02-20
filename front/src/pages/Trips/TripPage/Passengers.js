@@ -6,10 +6,11 @@ import { getUserInitials } from 'lib/helpers';
 const styles = {
   content:{ flexDirection: 'column', display: 'flex' },
   title: { display: 'flex', alignItems: 'center' },
-  icon: { marginRight: '8px' }
+  icon: { marginRight: '8px' },
+  btn: { alignSelf: 'center' }
 };
 
-const Passengers = ({ list, seats }) => (
+const Passengers = ({ list, seats, user }) => (
   <Card>
     <CardContent style={styles.content}>
       <Typography variant="h6" style={styles.title}>
@@ -31,7 +32,13 @@ const Passengers = ({ list, seats }) => (
         ))}
       </List>
       {seats > list?.length && (
-        <Button variant="contained" color="primary" size="large" style={{ alignSelf: 'center' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          style={styles.btn}
+          disabled={!user}
+        >
           Жолаушы болу
         </Button>
       )}
