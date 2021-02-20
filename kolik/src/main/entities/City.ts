@@ -12,6 +12,9 @@ export class City {
   @Column()
   region: string;
 
+  @Column()
+  map: string;
+
   @OneToMany(type => Trip, trip => trip.fromId)
   fromTrips: Promise<Trip[]>;
 
