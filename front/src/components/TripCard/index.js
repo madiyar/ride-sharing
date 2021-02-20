@@ -38,12 +38,9 @@ const TripCard = ({ trip, loading, showLink }) => {
           avatar={<Avatar>{getUserInitials(trip.driver.firstName, trip.driver.lastName)}</Avatar>}
           title={`${trip.driver.firstName} ${trip.driver.lastName}`}
           action={
-            <>
-              <IconButton onClick={() => setShowPhone(true)}>
-                <Icon.Phone />
-              </IconButton>
-              <IconButton><Icon.Star /></IconButton>
-            </>
+            <IconButton onClick={() => setShowPhone(true)}>
+              <Icon.Phone />
+            </IconButton>
           }
         />
         <CardActionArea
