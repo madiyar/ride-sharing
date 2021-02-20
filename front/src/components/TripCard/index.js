@@ -10,8 +10,8 @@ import {
   CardHeader,
   IconButton,
   List,
-  Link as MuiLink,
-  Typography
+  Typography,
+  ButtonBase
 } from '@material-ui/core';
 import { Icon } from 'components';
 
@@ -40,7 +40,7 @@ const TripCard = ({ trip, loading, showLink }) => {
           title={
             <Link
               to={`/user/${trip.driver.id}`}
-              component={MuiLink}
+              component={ButtonBase}
             >
               {trip.driver.firstName} {trip.driver.lastName}
             </Link>
