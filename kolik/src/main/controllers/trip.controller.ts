@@ -13,13 +13,20 @@ export class TripController {
 
   @Get()
   getAll() {
-    const result = new Promise((resolve, reject) => {
+    const result = new Promise((resolve) => {
       this.rootProvider.getAll().then(trips => {
         const res = trips.map(trip => {
           return this.pasProvider.getAll({ where: {tripId: trip.id} }).then(passengers => {
             return {
               ...trip,
-              passengers: passengers?.map(passenger => passenger?.user)
+              driver: {
+                ...trip?.driver,
+                avatar: `https://picsum.photos/seed/${trip?.driver?.id}/200/200`
+              },
+              passengers: passengers?.map(passenger => ({
+                ...passenger?.user,
+                avatar: `https://picsum.photos/seed/${passenger?.user?.id}/200/200`
+              }))
             }
           })
         });
@@ -31,7 +38,7 @@ export class TripController {
 
   @Get(':id')
   getById(@Param('id') id: number) {
-    const result = new Promise((resolve, reject) => {
+    const result = new Promise((resolve) => {
       this.rootProvider.getById(id).then(trip => {
         if (trip === undefined) {
           resolve(undefined);
@@ -39,7 +46,14 @@ export class TripController {
           this.pasProvider.getAll({ where: {tripId: id} }).then(passengers => {
             resolve({
               ...trip,
-              passengers: passengers.map(passenger => passenger?.user)
+              driver: {
+                ...trip?.driver,
+                avatar: `https://picsum.photos/seed/${trip?.driver?.id}/200/200`
+              },
+              passengers: passengers?.map(passenger => ({
+                ...passenger?.user,
+                avatar: `https://picsum.photos/seed/${passenger?.user?.id}/200/200`
+              }))
             });
           })
         }

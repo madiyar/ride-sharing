@@ -2,6 +2,8 @@ import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from
 import { UserProvider } from "../providers/user.provider";
 import { NotFoundInterceptor } from "../shared/notfound";
 
+// https://picsum.photos/seed/1/200/200
+
 @Controller('users')
 @UseInterceptors(new NotFoundInterceptor())
 export class UserController {
@@ -11,17 +13,44 @@ export class UserController {
 
   @Get()
   getAll() {
-    return this.rootProvider.getAll();
+    const result = new Promise((resolve) => {
+      this.rootProvider.getAll().then(users => {
+        const res = users.map(user => {
+          return { ...user, avatar: `https://picsum.photos/seed/${user?.id}/200/200` };
+        });
+        Promise.all(res).then(users => resolve(users))
+      });
+    });
+    // return this.rootProvider.getAll();
+    return result;
   }
 
   @Get(':id')
   getById(@Param('id') id: number) {
-    return this.rootProvider.getById(id);
+    const result = new Promise((resolve) => {
+      this.rootProvider.getById(id).then(user => resolve(
+        user === undefined
+        ? undefined
+        : { ...user, avatar: `https://picsum.photos/seed/${user?.id}/200/200` }
+      ));
+    });
+    return result;
+    // return this.rootProvider.getById(id);
   }
 
   @Post('auth')
   userAuth(@Body() data) {
-    return this.rootProvider.getOne({where: {phone: data.phone, password: data.password}});
+    const result = new Promise((resolve) => {
+      this.rootProvider
+        .getOne({ where: { phone: data.phone, password: data.password } })
+        .then(user => resolve(
+          user === undefined
+          ? undefined
+          : { ...user, avatar: `https://picsum.photos/seed/${user?.id}/200/200` }
+        ));
+    });
+    return result;
+    // return this.rootProvider.getOne({ where: { phone: data.phone, password: data.password } });
   }
 
   @Post()
