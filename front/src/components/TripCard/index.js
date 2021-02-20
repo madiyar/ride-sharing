@@ -38,12 +38,12 @@ const TripCard = ({ trip, loading, showLink }) => {
         <CardHeader
           avatar={<Avatar>{getUserInitials(trip.driver.firstName, trip.driver.lastName)}</Avatar>}
           title={
-            <Link
+            <ButtonBase
               to={`/user/${trip.driver.id}`}
-              component={ButtonBase}
+              component={Link}
             >
               {trip.driver.firstName} {trip.driver.lastName}
-            </Link>
+            </ButtonBase>
           }
           action={
             <IconButton onClick={() => setShowPhone(true)}>

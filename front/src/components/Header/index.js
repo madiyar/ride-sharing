@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { AppBar, Badge, Button, IconButton, Menu, MenuItem, TextField, Toolbar } from '@material-ui/core';
+import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
 import { Icon } from 'components';
 
 import useStyles from './useStyles';
 import LoginForm from './LoginForm';
+import Searchbar from './Searchbar';
 
 const Header = ({ openSidebar, isMobile }) => {
   const classes = useStyles();
@@ -46,11 +47,7 @@ const Header = ({ openSidebar, isMobile }) => {
                 <Icon.Menu />
               </IconButton>
             )}
-            <TextField
-              variant="outlined"
-              label="Іздеу"
-              size="small"
-            />
+            <Searchbar />
           </div>
           <div>
             {/* <IconButton>

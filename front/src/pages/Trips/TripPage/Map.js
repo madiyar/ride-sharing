@@ -35,8 +35,9 @@ const Map = ({ city, url, loading }) => (
             src={url}
             width="100%"
             height="400"
-            frameborder="0"
-            allowfullscreen="true"
+            frameBorder="0"
+            title={city}
+            allowFullScreen={true}
             style={{ position:'relative' }}
             loading="lazy"
           ></iframe>

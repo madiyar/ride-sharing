@@ -29,7 +29,7 @@ const AddPage = ({ addTrip }) => {
 
   useEffect(() => {
     register({ name: 'day', required: true, validate: val => !!val.trim() });
-  }, []);
+  }, [register]);
 
   const onSubmit = data => {
     if (data?.user_type === 'driver') {
