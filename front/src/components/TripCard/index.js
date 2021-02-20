@@ -19,7 +19,6 @@ import useStyles from './useStyles';
 import LoadingTrip from './LoadingTrip';
 import PhoneNumber from './PhoneNumber';
 import ListItem from './ListItem';
-import { getUserInitials } from 'lib/helpers';
 
 const TripCard = ({ trip, loading, showLink }) => {
   const classes = useStyles();
@@ -36,7 +35,7 @@ const TripCard = ({ trip, loading, showLink }) => {
       />
       <Card>
         <CardHeader
-          avatar={<Avatar>{getUserInitials(trip.driver.firstName, trip.driver.lastName)}</Avatar>}
+          avatar={<Avatar src={trip?.driver?.avatar} />}
           title={
             <ButtonBase
               to={`/user/${trip.driver.id}`}
