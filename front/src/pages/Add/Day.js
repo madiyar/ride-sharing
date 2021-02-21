@@ -3,7 +3,7 @@ import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import moment from 'moment';
 
-const Day = ({ value, setValue }) => (
+const Day = ({ value, setValue, user }) => (
   <Grid item xs={4}>
     <Card>
       <CardContent>
@@ -17,6 +17,7 @@ const Day = ({ value, setValue }) => (
           value={value}
           label="Қай күні?"
           onChange={date => setValue(moment(date).format('YYYY-MM-DD'))}
+          disabled={!user}
           disablePast
           fullWidth
         />

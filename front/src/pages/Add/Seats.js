@@ -2,7 +2,7 @@ import React from 'react';
 import { Controller } from 'react-hook-form';
 import { Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
 
-const Seats = ({ control }) => (
+const Seats = ({ control, user }) => (
   <Grid item xs={4}>
     <Card>
       <CardContent>
@@ -18,6 +18,7 @@ const Seats = ({ control }) => (
           type="number"
           InputLabelProps={{ shrink: true }}
           InputProps={{ inputProps: { min: 1, max: 5 } }}
+          disabled={!user}
           fullWidth
         />
       </CardContent>

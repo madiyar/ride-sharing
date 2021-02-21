@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 
-const Header = () => (
+const Header = ({ user }) => (
   <Grid
     item
     xs={12}
@@ -10,6 +10,7 @@ const Header = () => (
       backgroundPosition: 'center center',
       backgroundSize: 'cover',
       textAlign: 'center',
+      filter: !user ? 'grayscale(1)' : 'initial',
       position: 'relative',
       color: '#fff',
       padding: `104px 0`,
@@ -29,7 +30,9 @@ const Header = () => (
         borderRadius: 16
       }}
     >
-      <Typography variant="h2" style={{ zIndex: 9999 }}>Жаңа тапсырыс</Typography>
+      <Typography variant="h2" style={{ zIndex: 9999 }}>
+        {!user ? 'Сайтқа кіріңіз' : 'Жаңа тапсырыс'}
+      </Typography>
     </span>
   </Grid>
 );

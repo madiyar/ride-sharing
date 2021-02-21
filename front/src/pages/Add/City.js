@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 import { SelectCity } from 'components';
 
-const City = ({ control, name, label, city }) => (
+const City = ({ control, name, label, city, user }) => (
   <Grid item xs={4}>
     <Card>
       <CardContent>
@@ -17,6 +17,7 @@ const City = ({ control, name, label, city }) => (
               {...props}
               city={city}
               label={label}
+              disabled={!user}
               onChange={(_, data) => props.onChange(data)}
             />
           )}

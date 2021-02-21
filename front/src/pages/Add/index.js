@@ -13,6 +13,7 @@ import Seats from './Seats';
 import Price from './Price';
 
 import { addTrip } from 'store/trips/actions';
+import { currentUser } from 'lib/helpers';
 
 const AddPage = ({ addTrip }) => {
   const { control, handleSubmit, watch, setValue, register } = useForm({
@@ -25,7 +26,7 @@ const AddPage = ({ addTrip }) => {
       price: 1,
     }
   });
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = currentUser();
 
   useEffect(() => {
     register({ name: 'day', required: true, validate: val => !!val.trim() });
@@ -56,25 +57,31 @@ const AddPage = ({ addTrip }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3} xs={8} style={{ margin: `0 auto` }}>
-        <Header />
-        <WhoAreYou control={control} />
+        <Header user={user} />
+        <WhoAreYou control={control} user={user} />
         <City
           control={control}
           name="from"
           label="Қайдан шығасыз?"
           city={watch('to')}
+          user={user}
         />
         <City
           control={control}
           name="to"
           label="Қайда барасыз?"
           city={watch('from')}
+          user={user}
         />
-        <Day value={watch('day')} setValue={day => setValue('day', day)} />
+        <Day
+          value={watch('day')}
+          setValue={day => setValue('day', day)}
+          user={user}
+        />
         {watch('user_type') === 'driver' && (
           <>
-            <Seats control={control} />
-            <Price control={control} />
+            <Seats control={control} user={user} />
+            <Price control={control} user={user} />
           </>
         )}
         <Grid item xs={12}>
@@ -87,6 +94,7 @@ const AddPage = ({ addTrip }) => {
               fontSize: 24,
               padding: `24px auto`
             }}
+            disabled={!user}
             fullWidth
           >
             ОК
