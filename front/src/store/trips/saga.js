@@ -9,6 +9,7 @@ import {
   getTrips,
   getUserTrips,
   getTrip,
+  getUserTrip,
   addTrip,
   addUserTrip
 } from './api';
@@ -40,12 +41,17 @@ function* getTripsSaga({ payload }) {
   }
 }
 
-function* getTripSaga({ payload }) {
+function* getTripSaga({ payload: { tripId, type } }) {
   try {
     yield put({
       type: GET_TRIP + LOADING
     });
-    const result = yield call(getTrip, payload);
+    let result = {};
+    if (type === 'drivers') {
+      result = yield call(getTrip, tripId);
+    } else {
+      result = yield call(getUserTrip, tripId);
+    }
     if (result) {
       yield put({
         type: GET_TRIP + DONE,

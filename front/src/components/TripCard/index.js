@@ -52,7 +52,7 @@ const TripCard = ({ trip, user, type, loading, showLink }) => {
         />
         <CardActionArea
           component={Link}
-          to={`trip/${trip?.id}`}
+          to={`trip/${type}/${trip?.id}`}
           disabled={!showLink}
         >
           <CardContent>

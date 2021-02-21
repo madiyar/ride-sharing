@@ -17,11 +17,11 @@ const styles = {
   }
 };
 
-const Map = ({ city, url, loading }) => (
+export default ({ city, url, loading }) => (
   <Card style={styles.card}>
     <CardContent>
       <Typography variant="h6" style={styles.title}>
-        <Icon.Map style={styles.icon} />
+        <Icon.MapPin style={styles.icon} />
         {loading ? (
           <Skeleton animation="wave" height={10} width="80%" />
         ) : city}
@@ -46,5 +46,3 @@ const Map = ({ city, url, loading }) => (
     </CardContent>
   </Card>
 );
-
-export default Map;

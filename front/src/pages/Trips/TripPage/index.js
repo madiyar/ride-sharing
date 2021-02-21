@@ -11,16 +11,17 @@ import { currentUser } from 'lib/helpers';
 // components
 import Passengers from './Passengers';
 import Map from './Map';
+import Route from './Route';
 
-const TripPage = ({ getTrip, trip, loading }) => {
+const TripPage = ({ type, getTrip, trip, loading }) => {
   const { tripId } = useParams();
   const user = currentUser();
 
   useEffect(() => {
     if (tripId) {
-      getTrip(tripId);
+      getTrip({ tripId, type });
     }
-  }, [tripId, getTrip]);
+  }, [tripId, type, getTrip]);
 
   return (
     <>
@@ -36,13 +37,21 @@ const TripPage = ({ getTrip, trip, loading }) => {
         {/* CONTENT */}
         <Grid item md={8} xs={12}>
           {(loading || trip) && (
-            <TripCard trip={trip} loading={loading} />
+            <TripCard
+              trip={trip}
+              user={type === 'drivers' ? trip?.driver : trip?.user}
+              type={type}
+              loading={loading}
+            />
           )}
-          <Comment id={`trip${tripId}`} />
+          <Comment id={`${type}${tripId}`} />
         </Grid>
         {/* SIDEBAR */}
         <Grid item md={4} xs={12}>
-          <Passengers list={trip?.passengers} seats={trip?.seats} user={user} />
+          {type === 'drivers' && (
+            <Passengers list={trip?.passengers} seats={trip?.seats} user={user} />
+          )}
+          <Route from={trip?.from?.name} to={trip?.to?.name} />
           <Map city={trip?.to?.name} url={trip?.to?.map} loading={loading} />
         </Grid>
       </Grid>

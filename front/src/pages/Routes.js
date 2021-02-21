@@ -11,7 +11,12 @@ import { NotFound } from 'components';
 const Routes = () => (
   <Switch>
     <Route path="/" exact component={Home} />
-    <Route path="/trip/:tripId" component={TripPage} />
+    <Route path="/trip/drivers/:tripId">
+      <TripPage type="drivers" />
+    </Route>
+    <Route path="/trip/users/:tripId">
+      <TripPage type="users" />
+    </Route>
     <Route path="/user/:userId" component={User} />
     <Route path="/add" component={AddPage} />
     <Route path="*" exact={true} component={NotFound} />

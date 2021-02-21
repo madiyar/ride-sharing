@@ -3,14 +3,15 @@ import { Avatar, Button, Card, CardContent, List, ListItem, ListItemAvatar, List
 import { Icon } from 'components';
 
 const styles = {
+  card: { marginBottom: 16 },
   content:{ flexDirection: 'column', display: 'flex' },
   title: { display: 'flex', alignItems: 'center' },
   icon: { marginRight: '8px' },
   btn: { alignSelf: 'center' }
 };
 
-const Passengers = ({ list, seats, user }) => (
-  <Card>
+export default ({ list, seats, user }) => (
+  <Card style={styles.card}>
     <CardContent style={styles.content}>
       <Typography variant="h6" style={styles.title}>
         <Icon.Users style={styles.icon} />
@@ -42,5 +43,3 @@ const Passengers = ({ list, seats, user }) => (
     </CardContent>
   </Card>
 );
-
-export default Passengers;
