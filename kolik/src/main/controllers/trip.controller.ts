@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors, Query } from "@nestjs/common";
 import { PassengerProvider } from "../providers/passenger.provider";
 import { TripProvider } from "../providers/trip.provider";
 import { NotFoundInterceptor } from "../shared/notfound";
@@ -12,9 +12,9 @@ export class TripController {
   ) {}
 
   @Get()
-  getAll() {
+  getAll(@Query() query) {
     const result = new Promise((resolve) => {
-      this.rootProvider.getAll().then(trips => {
+      this.rootProvider.getAll(query && { where: query }).then(trips => {
         const res = trips.map(trip => {
           return this.pasProvider.getAll({ where: {tripId: trip.id} }).then(passengers => {
             return {

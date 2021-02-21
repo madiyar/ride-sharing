@@ -20,20 +20,10 @@ const useStyles = makeStyles(theme => createStyles({
 const ShareList = ({ trips, loading, getTrips }) => {
   const classes = useStyles();
   const [tab, setTab] = React.useState('drivers');
-  const [list, setList] = React.useState([]);
 
   useEffect(() => {
-    if (!trips.length) {
-      getTrips('drivers');
-      getTrips('users');
-    }
-  }, [trips, getTrips]);
-
-  useEffect(() => {
-    if (trips?.length) {
-      setList(trips.filter(item => item.type === tab))
-    }
-  }, [trips, tab]);
+    getTrips({ type: tab });
+  }, [tab]);
 
   return (
     <>
@@ -52,7 +42,7 @@ const ShareList = ({ trips, loading, getTrips }) => {
           </Tabs>
         </Grid>
         {loading && [0,1,2,3].map(item => <Grid item lg={6} xs={12} key={`loader-${item}`}><TripCard loading={loading} /></Grid>)}
-        {list.map(trip => (
+        {trips.map(trip => (
           <Grid item lg={6} xs={12} key={`trip-${trip.id}`}>
             <TripCard
               trip={trip}
@@ -65,7 +55,7 @@ const ShareList = ({ trips, loading, getTrips }) => {
       </Grid>
       {!loading && (
         <Pagination
-          count={Math.ceil(list?.length/4)}
+          count={Math.ceil(trips?.length/4)}
           variant="outlined"
           color="primary"
           shape="rounded"

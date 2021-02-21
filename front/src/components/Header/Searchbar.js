@@ -4,6 +4,7 @@ import { Autocomplete } from '@material-ui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCities } from 'store/helpers/actions';
 import { Icon } from 'components';
+import { history } from 'lib/helpers';
 
 let TIMER;
 const INTERVAL = 500;
@@ -26,7 +27,6 @@ const Searchbar = () => {
   const dispatch = useDispatch();
   const { data, loading: citiesLoading } = useSelector(state => state.helpers.cities);
   const [cities, setCities] = useState([]);
-  const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [focus, setFocus] = useState(false);
 
@@ -57,8 +57,9 @@ const Searchbar = () => {
   };
 
   const handleSelect = (e, val) => {
-    setValue(val);
-    // redirect to search page
+    if (val) {
+      history.push(`/search/${val?.type === 'Қайдан?' ? 'from' : 'to'}/${val?.id}`);
+    }
   };
 
   return (
@@ -66,7 +67,6 @@ const Searchbar = () => {
       <Autocomplete
         options={cities}
         id="search"
-        value={value}
         getOptionLabel={(option) => option.name || ''}
         groupBy={(option) => option.region}
         renderOption={(option) => (

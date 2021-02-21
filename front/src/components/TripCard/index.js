@@ -63,7 +63,7 @@ const TripCard = ({ trip, user, type, loading, showLink }) => {
               <ListItem
                 icon={<Icon.Calendar />}
                 title="Шығу уақыты"
-                value={moment(trip?.day).format('DD.MM.YYYY, H:mm')}
+                value={moment(trip?.day).format('DD.MM.YY, H:mm')}
               />
               {type !== 'users' && (
                 <>

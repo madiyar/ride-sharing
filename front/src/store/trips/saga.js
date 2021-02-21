@@ -15,21 +15,21 @@ import {
 } from './api';
 import { createError, history } from 'lib/helpers';
 
-function* getTripsSaga({ payload }) {
+function* getTripsSaga({ payload: { type, ...rest } }) {
   try {
     yield put({
       type: GET_TRIPS + LOADING
     });
     let result = [];
-    if (payload === 'users') {
-      result = yield call(getUserTrips);  
+    if (type === 'users') {
+      result = yield call(getUserTrips, rest);  
     } else {
-      result = yield call(getTrips);
+      result = yield call(getTrips, rest);
     }
     if (result) {
       yield put({
         type: GET_TRIPS + DONE,
-        payload: result.map(item => ({ ...item, type: payload }))
+        payload: result.map(item => ({ ...item, type }))
       });
     }
   } catch (e) {

@@ -1,8 +1,8 @@
 import api from 'lib/api';
 
 // GET_TRIPS
-export const getTrips = () => api.get('/trips').then(({ data }) => data);
-export const getUserTrips = () => api.get('/user_trips').then(({ data }) => data);
+export const getTrips = params => api.get('/trips', { params }).then(({ data }) => data);
+export const getUserTrips = params => api.get('/user_trips', { params }).then(({ data }) => data);
 
 // GET_TRIP
 export const getTrip = (id) => api.get(`/trips/${id}`).then(({ data }) => data);
