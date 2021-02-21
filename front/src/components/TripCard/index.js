@@ -20,7 +20,7 @@ import LoadingTrip from './LoadingTrip';
 import PhoneNumber from './PhoneNumber';
 import ListItem from './ListItem';
 
-const TripCard = ({ trip, loading, showLink }) => {
+const TripCard = ({ trip, user, type, loading, showLink }) => {
   const classes = useStyles();
   const [showPhone, setShowPhone] = useState(false);
 
@@ -31,17 +31,17 @@ const TripCard = ({ trip, loading, showLink }) => {
       <PhoneNumber
         open={showPhone}
         onClose={() => setShowPhone(false)}
-        user={trip.driver}
+        user={user}
       />
       <Card>
         <CardHeader
-          avatar={<Avatar src={trip?.driver?.avatar} />}
+          avatar={<Avatar src={user?.avatar} />}
           title={
             <ButtonBase
-              to={`/user/${trip.driver.id}`}
+              to={`/user/${user?.id}`}
               component={Link}
             >
-              {trip.driver.firstName} {trip.driver.lastName}
+              {user?.firstName} {user?.lastName}
             </ButtonBase>
           }
           action={
@@ -52,7 +52,7 @@ const TripCard = ({ trip, loading, showLink }) => {
         />
         <CardActionArea
           component={Link}
-          to={`trip/${trip.id}`}
+          to={`trip/${trip?.id}`}
           disabled={!showLink}
         >
           <CardContent>
@@ -65,16 +65,20 @@ const TripCard = ({ trip, loading, showLink }) => {
                 title="Шығу уақыты"
                 value={moment(trip?.day).format('DD.MM.YYYY, H:mm')}
               />
-              <ListItem
-                icon={<Icon.Users />}
-                title="Барлық орын саны"
-                value={trip?.seats}
-              />
-              <ListItem
-                icon={<Icon.DollarSign />}
-                title="Бағасы"
-                value={`${trip?.price} тг/орын`}
-              />
+              {type !== 'users' && (
+                <>
+                  <ListItem
+                    icon={<Icon.Users />}
+                    title="Барлық орын саны"
+                    value={trip?.seats}
+                  />
+                  <ListItem
+                    icon={<Icon.DollarSign />}
+                    title="Бағасы"
+                    value={`${trip?.price} тг/орын`}
+                  />
+                </>
+              )}
             </List>
           </CardContent>
         </CardActionArea>

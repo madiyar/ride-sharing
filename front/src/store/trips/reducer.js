@@ -37,7 +37,10 @@ export default handleActions({
     trips: {
       ...state.trips,
       loading: false,
-      data: payload
+      data: [
+        ...state.trips.data,
+        ...payload
+      ]
     }
   }),
   // GET TRIP
