@@ -10,10 +10,10 @@ const cells = [
   { id: 'day', numeric: false, label: 'Қай күні?' },
   { id: 'seats', numeric: true, label: 'Бос орын саны' },
   { id: 'price', numeric: true, label: 'Бағасы (тг)' },
-  { id: 'user', numeric: false, label: 'Жолаушы' },
+  { id: 'user', numeric: false, label: 'Жүргізуші' },
 ];
 
-export default ({ order, orderBy, handleSort, type }) => {
+export default ({ order, orderBy, handleSort }) => {
 
   const handleClick = (property) => (event) => {
     handleSort(event, property);
@@ -33,7 +33,7 @@ export default ({ order, orderBy, handleSort, type }) => {
               direction={orderBy === cell.id ? order : 'asc'}
               onClick={handleClick(cell.id)}
             >
-              {type === 'drivers' && cell.id === 'user' ? 'Жүргізуші' : cell.label}
+              {cell.label}
             </TableSortLabel>
           </TableCell>
         ))}

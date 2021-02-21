@@ -73,7 +73,7 @@ export default ({ type }) => {
       <Loader open={loading} />
       <TableContainer>
         <Table size="medium">
-          <TableHead order={order} orderBy={orderBy} handleSort={handleSort} type="drivers" />
+          <TableHead order={order} orderBy={orderBy} handleSort={handleSort} />
           <TableBody>
             {stableSort(rows, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
