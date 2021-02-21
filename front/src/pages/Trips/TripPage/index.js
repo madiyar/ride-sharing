@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 
 // common
-import { Breadcrumbs, Card, CardContent, Grid, Link, Typography } from '@material-ui/core';
-import { Comment, Icon, TripCard } from 'components';
+import { Breadcrumbs, Grid, Link, Typography } from '@material-ui/core';
+import { Comment, TripCard } from 'components';
 import { getTrip } from 'store/trips/actions';
 import { currentUser } from 'lib/helpers';
 
@@ -38,15 +38,7 @@ const TripPage = ({ getTrip, trip, loading }) => {
           {(loading || trip) && (
             <TripCard trip={trip} loading={loading} />
           )}
-          <Card style={{ marginTop: 16 }}>
-            <CardContent>
-              <Typography variant="h6" style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
-                <Icon.MessageCircle style={{ marginRight: '8px' }} />
-                Пікірлер
-              </Typography>
-              <Comment id={`trip${tripId}`} />
-            </CardContent>
-          </Card>
+          <Comment id={`trip${tripId}`} />
         </Grid>
         {/* SIDEBAR */}
         <Grid item md={4} xs={12}>

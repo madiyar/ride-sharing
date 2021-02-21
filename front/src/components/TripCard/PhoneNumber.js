@@ -17,10 +17,10 @@ export default ({ open, onClose, user }) => (
     </DialogTitle>
     <DialogContent>
       <DialogContentText style={{ textAlign: 'center '}}>
-        {user.firstName} {user.lastName}
+        {user?.firstName} {user?.lastName}
       </DialogContentText>
       <DialogContentText style={{ textAlign: 'center '}}>
-        <Button variant="outlined" color="primary" href={`tel:${user.phone}`}>{user.phone}</Button>
+        <Button variant="outlined" color="primary" href={`tel:${user?.phone}`}>{user?.phone}</Button>
       </DialogContentText>
     </DialogContent>
   </Dialog>

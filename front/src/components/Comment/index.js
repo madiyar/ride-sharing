@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { Card, CardContent, Typography } from '@material-ui/core';
+import { Icon } from 'components';
 import LoadingComment from './LoadingComment';
 
 let TIMER;
@@ -26,10 +28,16 @@ const Comment = ({ id }) => {
   }, []);
 
   return (
-    <>
-      {loading && <LoadingComment />}
-      <div id={`vk_comments_${id}`} style={{ display: loading ? 'none' : 'inherit' }} />
-    </>
+    <Card style={{ marginTop: 16 }}>
+      <CardContent>
+        <Typography variant="h6" style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
+          <Icon.MessageCircle style={{ marginRight: '8px' }} />
+          Пікірлер
+        </Typography>
+        {loading && <LoadingComment />}
+        <div id={`vk_comments_${id}`} style={{ display: loading ? 'none' : 'inherit' }} />
+      </CardContent>
+    </Card>
   );
 };
 
