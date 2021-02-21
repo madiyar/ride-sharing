@@ -4,8 +4,9 @@ import { useParams, Link as RouterLink } from 'react-router-dom';
 
 // common
 import { Breadcrumbs, Card, CardContent, Grid, Link, Typography } from '@material-ui/core';
-import { Icon, TripCard } from 'components';
+import { Comment, Icon, TripCard } from 'components';
 import { getTrip } from 'store/trips/actions';
+import { currentUser } from 'lib/helpers';
 
 // components
 import Passengers from './Passengers';
@@ -13,20 +14,13 @@ import Map from './Map';
 
 const TripPage = ({ getTrip, trip, loading }) => {
   const { tripId } = useParams();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = currentUser();
 
   useEffect(() => {
     if (tripId) {
       getTrip(tripId);
     }
   }, [tripId, getTrip]);
-
-  useEffect(() => {
-    if (tripId) {
-      global.VK.init({apiId: 7765923, onlyWidgets: true});
-      global.VK.Widgets.Comments(`vk_comments_trip${tripId}`, {limit: 10, attach: "*"}, `trip${tripId}`);
-    }
-  }, [tripId]);
 
   return (
     <>
@@ -46,11 +40,11 @@ const TripPage = ({ getTrip, trip, loading }) => {
           )}
           <Card style={{ marginTop: 16 }}>
             <CardContent>
-              <Typography variant="h6" style={{ display: 'flex', alignItems: 'center' }}>
+              <Typography variant="h6" style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
                 <Icon.MessageCircle style={{ marginRight: '8px' }} />
                 Пікірлер
               </Typography>
-              {tripId && <div id={`vk_comments_trip${tripId}`}></div>}
+              <Comment id={`trip${tripId}`} />
             </CardContent>
           </Card>
         </Grid>

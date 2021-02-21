@@ -19,3 +19,5 @@ export const createError = (e) => {
     }
   }
 };
+
+export const currentUser = () => JSON.parse(localStorage.getItem('user'));
