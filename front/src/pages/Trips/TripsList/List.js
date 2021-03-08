@@ -23,7 +23,7 @@ const ShareList = ({ trips, loading, getTrips }) => {
 
   useEffect(() => {
     getTrips({ type: tab });
-  }, [tab]);
+  }, [tab, getTrips]);
 
   return (
     <>

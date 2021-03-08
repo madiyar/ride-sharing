@@ -36,7 +36,7 @@ export default ({ type }) => {
       const key = `${type}Id`;
       dispatch(getTrips({ [key]: cityId }));
     }
-  }, [cityId, type]);
+  }, [cityId, type, dispatch]);
 
   // prepare ROWS from store
   useEffect(() => {
