@@ -5,7 +5,7 @@ import { InputAdornment, TextField } from '@material-ui/core';
 import { Icon } from 'components';
 import { getCities } from 'store/helpers/actions';
 
-const SelectCity = ({ label, loading, cities, getCities, city, ...props }) => {
+const SelectCity = ({ label, loading, cities, getCities, city, error, ...props }) => {
   useEffect(() => {
     if (!cities.length) getCities();
   }, [cities, getCities]);
@@ -27,6 +27,8 @@ const SelectCity = ({ label, loading, cities, getCities, city, ...props }) => {
           label={label}
           margin="normal"
           variant="outlined"
+          error={error}
+          helperText={error && 'Қала таңдаңыз'}
           InputProps={{
             ...params.InputProps,
             startAdornment: (

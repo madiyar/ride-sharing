@@ -20,20 +20,25 @@ const useStyles = makeStyles(theme => createStyles({
   }
 }))
 
-const Filter = ({ loading }) => {
+const Filter = ({ setFilter, loading }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     from: null,
     to: null,
     date: null
   });
+  const [valid, setValid] = useState(true);
 
   const handleDateChange = date => {
     setFormData({...formData, date: moment(date).format('YYYY-MM-DD')});
   };
 
   const handleSubmit = () => {
-    console.log(formData);
+    if (!formData.from || !formData.to || !formData.date) {
+      setValid(false);
+      return;
+    }
+    setFilter(formData);
   };
 
   return (
@@ -43,12 +48,14 @@ const Filter = ({ loading }) => {
         value={formData.from}
         onChange={(_, city) => setFormData({...formData, from: city})}
         label="Қайдан?"
+        error={!valid}
       />
       <SelectCity
         city={formData.from}
         value={formData.to}
         onChange={(_, city) => setFormData({...formData, to: city})}
         label="Қайда?"
+        error={!valid}
       />
       <DatePicker
         showTodayButton
@@ -59,7 +66,9 @@ const Filter = ({ loading }) => {
         value={formData.date}
         label="Қай күні?"
         onChange={handleDateChange}
+        helperText={!valid && 'Күн таңдаңыз'}
         disabled={loading}
+        error={!valid}
         disablePast
         fullWidth
       />
