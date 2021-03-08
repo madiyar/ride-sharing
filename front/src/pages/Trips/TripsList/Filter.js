@@ -25,16 +25,16 @@ const Filter = ({ setFilter, loading }) => {
   const [formData, setFormData] = useState({
     from: null,
     to: null,
-    date: null
+    day: null
   });
   const [valid, setValid] = useState(true);
 
-  const handleDateChange = date => {
-    setFormData({...formData, date: moment(date).format('YYYY-MM-DD')});
+  const handleDateChange = day => {
+    setFormData({...formData, day: moment(day).format('YYYY-MM-DD')});
   };
 
   const handleSubmit = () => {
-    if (!formData.from || !formData.to || !formData.date) {
+    if (!formData.from || !formData.to || !formData.day) {
       setValid(false);
       return;
     }
@@ -69,7 +69,6 @@ const Filter = ({ setFilter, loading }) => {
         helperText={!valid && 'Күн таңдаңыз'}
         disabled={loading}
         error={!valid}
-        disablePast
         fullWidth
       />
       <Button

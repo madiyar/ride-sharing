@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { Drawer, Grid, Hidden, Tab, Tabs, makeStyles, createStyles } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
@@ -20,10 +21,13 @@ const useStyles = makeStyles(theme => createStyles({
   }
 }));
 
+const PER_PAGE = 4;
+
 const TripsList = () => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [tab, setTab] = React.useState('drivers');
   const [trips, setTrips] = React.useState([]);
+  const [page, setPage] = useState(1);
 
   const { trips: { loading, data } } = useSelector(state => state.trips);
   const dispatch = useDispatch();
@@ -34,15 +38,24 @@ const TripsList = () => {
     dispatch(getTrips({ type: tab }));
   }, [tab, dispatch]);
 
-  // set trips after request
+  // set trips
   useEffect(() => {
     if (data?.length) {
-      setTrips(data);
+      const startList = (page - 1) * PER_PAGE;
+      setTrips(data.slice(startList, startList + PER_PAGE));
     }
-  }, [data]);
+  }, [data, page]);
 
-  const setFilter = data => {
-    console.log(data);
+  // pagination
+  const handlePageChange = (e, page) => setPage(page);
+
+  // filtering
+  const setFilter = formData => {
+    setTrips(data.filter(trip => 
+      trip?.fromId === formData?.from?.id &&
+      trip?.toId === formData?.to?.id &&
+      moment(trip?.day).format('YYYY-MM-DD') === formData?.day
+    ));
   };
 
   return (
@@ -72,11 +85,13 @@ const TripsList = () => {
           </Grid>
           {!loading && (
             <Pagination
-              count={Math.ceil(data?.length/4)}
+              count={Math.ceil(data?.length / PER_PAGE)}
               variant="outlined"
               color="primary"
               shape="rounded"
               classes={{ ul: classes.pagination }}
+              page={page}
+              onChange={handlePageChange}
             />
           )}
         </Grid>
