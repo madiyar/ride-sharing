@@ -50,6 +50,7 @@ const TripPage = ({ type, getTrip, trip, loading }) => {
         <Grid item md={4} xs={12}>
           {type === 'drivers' && (
             <Passengers
+              loading={loading}
               list={trip?.passengers}
               seats={trip?.seats}
               user={user}
