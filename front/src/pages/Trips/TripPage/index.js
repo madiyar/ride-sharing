@@ -49,7 +49,12 @@ const TripPage = ({ type, getTrip, trip, loading }) => {
         {/* SIDEBAR */}
         <Grid item md={4} xs={12}>
           {type === 'drivers' && (
-            <Passengers list={trip?.passengers} seats={trip?.seats} user={user} />
+            <Passengers
+              list={trip?.passengers}
+              seats={trip?.seats}
+              user={user}
+              isCurrent={trip?.driver?.id === user?.id}
+            />
           )}
           <Route from={trip?.from?.name} to={trip?.to?.name} />
           <Map city={trip?.to?.name} url={trip?.to?.map} loading={loading} />

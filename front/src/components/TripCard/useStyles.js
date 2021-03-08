@@ -11,5 +11,9 @@ export default makeStyles(theme => createStyles({
       display: 'flex',
       alignItems: 'center'
     }
+  },
+  dialogActions: {
+    justifyContent: 'center',
+    padding: '24px'
   }
 }));
