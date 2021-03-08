@@ -5,6 +5,7 @@ import { Icon } from 'components';
 import useStyles from './useStyles';
 import LoginForm from './LoginForm';
 import Searchbar from './Searchbar';
+import { history } from 'lib/helpers';
 
 const Header = ({ openSidebar, isMobile }) => {
   const classes = useStyles();
@@ -29,6 +30,11 @@ const Header = ({ openSidebar, isMobile }) => {
     document.location.reload();
     handleClose();
   };
+
+  const goProfile = () => {
+    history.push(`/user/${user?.id}`)
+    handleClose();
+  }
 
   return (
     <>
@@ -85,7 +91,7 @@ const Header = ({ openSidebar, isMobile }) => {
               }}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Менің парақшам</MenuItem>
+              <MenuItem onClick={goProfile}>Менің парақшам</MenuItem>
               <MenuItem onClick={handleExit}>Шығу</MenuItem>
             </Menu>
           </div>

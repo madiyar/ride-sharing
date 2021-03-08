@@ -83,7 +83,7 @@ function* addTripSaga({ payload }) {
         type: ADD_TRIP + DONE,
         payload: result
       });
-      history.push(`/trip/${result?.id}`);
+      history.push(`/trip/${user_type === 'driver' ? 'drivers' : 'users'}/${result?.id}`);
     }
   } catch (e) {
     yield put(createError(e));

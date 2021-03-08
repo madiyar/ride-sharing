@@ -20,6 +20,16 @@ import LoadingTrip from './LoadingTrip';
 import PhoneNumber from './PhoneNumber';
 import ListItem from './ListItem';
 
+const badgeStyles = {
+  background: `#3cc86d`,
+  padding: `1px 10px`,
+  margin: `-1px -10px -1px 10px`,
+  borderRadius: `999rem`,
+  display: `inline-block`,
+  color: `#e7ffe5`,
+  textShadow: `1px 1px 2px #137b0a`
+};
+
 const TripCard = ({ trip, user, type, loading, showLink }) => {
   const classes = useStyles();
   const [showPhone, setShowPhone] = useState(false);
@@ -33,7 +43,14 @@ const TripCard = ({ trip, user, type, loading, showLink }) => {
         onClose={() => setShowPhone(false)}
         user={user}
       />
-      <Card>
+      <Card style={{
+        background:
+          moment().diff(trip?.day, 'days') > 0
+          ? 'linear-gradient(#fff3f3, #ffe1e9)' // due
+          : moment().diff(trip?.day, 'days') === 0
+          ? 'linear-gradient(#f2fceb, #d0f4cd)' // today
+          : 'white' // default
+      }}>
         <CardHeader
           avatar={<Avatar src={user?.avatar} />}
           title={
@@ -63,7 +80,12 @@ const TripCard = ({ trip, user, type, loading, showLink }) => {
               <ListItem
                 icon={<Icon.Calendar />}
                 title="Шығу уақыты"
-                value={moment(trip?.day).format('DD.MM.YY, H:mm')}
+                value={
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span>{moment(trip?.day).format('DD.MM.YY, H:mm')}</span>
+                    {moment().diff(trip?.day, 'days') === 0 ? <span style={badgeStyles}>бүгін</span> : ''}
+                  </div>
+                }
               />
               {type !== 'users' && (
                 <>
