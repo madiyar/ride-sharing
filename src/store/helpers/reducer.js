@@ -3,7 +3,8 @@ import {
   GET_CITIES,
   AUTH_USER,
   GET_USER,
-  SET_ERROR
+  SET_ERROR,
+  UPLOAD_CAR_PHOTO
 } from './constants';
 import { DONE, LOADING, FAIL } from '../constants';
 
@@ -14,7 +15,8 @@ const initialState = {
   },
   authFormLoading: false,
   userLoading: false,
-  currentUser: null,
+  uploadLoading: false,
+  user: null,
   error: null
 };
 
@@ -73,5 +75,22 @@ export default handleActions({
     ...state,
     userLoading: false,
     user: payload
+  }),
+  // UPLOAD PHOTO
+  [UPLOAD_CAR_PHOTO + LOADING]: state => ({
+    ...state,
+    uploadLoading: true
+  }),
+  [UPLOAD_CAR_PHOTO + FAIL]: state => ({
+    ...state,
+    uploadLoading: false
+  }),
+  [UPLOAD_CAR_PHOTO + DONE]: (state, { payload }) => ({
+    ...state,
+    uploadLoading: false,
+    user: {
+      ...state?.user,
+      ...payload
+    }
   }),
 }, initialState);

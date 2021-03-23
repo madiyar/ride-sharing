@@ -3,3 +3,4 @@ export const AUTH_USER = 'helper/AUTH_USER';
 export const SIGN_UP = 'helper/SIGN_UP';
 export const GET_USER = 'helper/GET_USER';
 export const SET_ERROR = 'helper/SET_ERROR';
+export const UPLOAD_CAR_PHOTO = 'helper/UPLOAD_CAR_PHOTO';

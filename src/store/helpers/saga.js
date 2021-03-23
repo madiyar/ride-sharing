@@ -4,14 +4,16 @@ import {
   AUTH_USER,
   SIGN_UP,
   GET_USER,
-  SET_ERROR
+  SET_ERROR,
+  UPLOAD_CAR_PHOTO
 } from './constants';
 import { DONE, LOADING, FAIL } from '../constants';
 import {
   getCities,
   authUser,
   getUser,
-  signUp
+  signUp,
+  uploadPhoto
 } from './api';
 import { createError } from 'lib/helpers';
 
@@ -114,10 +116,32 @@ function* getUserSaga({ payload }) {
   }
 }
 
+function* uploadPhotoSaga({ payload }) {
+  try {
+    yield put({
+      type: UPLOAD_CAR_PHOTO + LOADING
+    });
+    const result = yield call(uploadPhoto, payload);
+    if (result) {
+      yield put({
+        type: UPLOAD_CAR_PHOTO + DONE,
+        payload: result
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(createError(e));
+    yield put({
+      type: UPLOAD_CAR_PHOTO + FAIL
+    });
+  }
+}
+
 export default function* helpersSaga() {
   yield takeLatest(GET_CITIES, getCitiesSaga);
   yield takeLatest(AUTH_USER, authUserSaga);
   yield takeLatest(SIGN_UP, createUserSaga);
   yield takeLatest(SET_ERROR, setErrorSaga);
   yield takeLatest(GET_USER, getUserSaga);
+  yield takeLatest(UPLOAD_CAR_PHOTO, uploadPhotoSaga);
 }
