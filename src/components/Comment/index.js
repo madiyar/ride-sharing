@@ -5,15 +5,13 @@ import LoadingComment from './LoadingComment';
 
 let TIMER;
 const INTERVAL = 3000;
-const PROD_APPID = 7795948;
-const DEV_APPID = 7765923;
 
 const Comment = ({ id }) => {
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     if (id) {
-      global.VK.init({ apiId: window.location.host === 'localhost' ? DEV_APPID : PROD_APPID, onlyWidgets: true });
+      global.VK.init({ apiId: process.env.REACT_APP_VK_ID, onlyWidgets: true });
       global.VK.Widgets.Comments(
         `vk_comments_${id}`,
         {limit: 10, attach: "*"},
