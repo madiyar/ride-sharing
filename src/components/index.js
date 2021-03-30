@@ -7,3 +7,4 @@ export { default as SelectCity } from './SelectCity';
 export { default as Sidebar } from './Sidebar';
 export { default as TripCard } from './TripCard';
 export { default as ConfirmPassenger } from './TripCard/ConfirmPassenger';
+export { default as Footer } from './Footer';

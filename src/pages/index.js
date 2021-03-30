@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import { useMediaQuery } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
-import { Header, NotFound, Sidebar } from 'components';
+import { Footer, Header, NotFound, Sidebar } from 'components';
 
 import Routes from './Routes';
 
@@ -65,6 +65,7 @@ export default function Pages() {
             <Routes />
           )}
         </div>
+        <Footer />
       </section>
     </main>
   );
