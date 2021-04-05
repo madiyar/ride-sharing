@@ -52,7 +52,7 @@ const TripsList = () => {
   // tab
   const changeTab = tab => {
     setTab(tab);
-    setPage(0);
+    setPage(1);
   };
 
   // filtering
