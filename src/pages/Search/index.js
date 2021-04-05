@@ -7,8 +7,7 @@ import {
   TableCell,
   TableContainer,
   TablePagination,
-  TableRow,
-  Typography
+  TableRow
 } from '@material-ui/core';
 import TableHead from './TableHead';
 import { history } from 'lib/helpers';
