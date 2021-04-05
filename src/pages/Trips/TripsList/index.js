@@ -49,6 +49,12 @@ const TripsList = () => {
   // pagination
   const handlePageChange = (e, page) => setPage(page);
 
+  // tab
+  const changeTab = tab => {
+    setTab(tab);
+    setPage(0);
+  };
+
   // filtering
   const setFilter = formData => {
     setTrips(data.filter(trip => 
@@ -69,7 +75,7 @@ const TripsList = () => {
                 value={tab}
                 indicatorColor="primary"
                 textColor="primary"
-                onChange={(e, tab) => setTab(tab)}
+                onChange={(e, tab) => changeTab(tab)}
                 className={classes.tab}
                 centered
               >

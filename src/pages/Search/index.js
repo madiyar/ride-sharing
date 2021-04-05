@@ -89,9 +89,7 @@ export default ({ type }) => {
             ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} align="center">
-                  <Typography variant="h5">Түк табылмады</Typography>
-                </TableCell>
+                <TableCell colSpan={6} align="center" />
               </TableRow>
             )}
           </TableBody>
