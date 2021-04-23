@@ -81,6 +81,7 @@ const Comments = ({ type, targetId }) => {
                 value={comment}
                 onChange={e => setComment(e.target.value)}
                 inputRef={inputRef}
+                disabled={!user?.id}
                 fullWidth
               />
               <Button
@@ -88,7 +89,7 @@ const Comments = ({ type, targetId }) => {
                 color="primary"
                 size="large"
                 onClick={submitComment}
-                disabled={!comment.trim()}
+                disabled={!comment.trim() || !user?.id}
               >
                 Жіберу
               </Button>
@@ -118,6 +119,7 @@ const Comments = ({ type, targetId }) => {
                                 size="small"
                                 startIcon={<Icon.CornerDownRight />}
                                 onClick={() => reply(comment?.user)}
+                                disabled={!user?.id}
                               >
                                 Жауап беру
                               </Button>
