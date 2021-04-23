@@ -33,10 +33,8 @@ const Comments = ({ type, targetId }) => {
   const { comments, commentsLoading: loading } = useSelector(state => state.helpers);
 
   useEffect(() => {
-    if (!comments) {
-      dispatch(getComments({ type, targetId }));
-    }
-  }, [comments, targetId, type, dispatch]);
+    dispatch(getComments({ type, targetId }));
+  }, [targetId, type, dispatch]);
 
   const reply = user => {
     inputRef.current.focus();
