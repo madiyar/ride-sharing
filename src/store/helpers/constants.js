@@ -4,3 +4,6 @@ export const SIGN_UP = 'helper/SIGN_UP';
 export const GET_USER = 'helper/GET_USER';
 export const SET_ERROR = 'helper/SET_ERROR';
 export const UPLOAD_CAR_PHOTO = 'helper/UPLOAD_CAR_PHOTO';
+export const GET_COMMENTS = 'helper/GET_COMMENTS';
+export const DELETE_COMMENT = 'helper/DELETE_COMMENT';
+export const ADD_COMMENT = 'helper/ADD_COMMENT';

@@ -44,7 +44,7 @@ const TripPage = ({ type, getTrip, trip, loading }) => {
               loading={loading}
             />
           )}
-          <Comment id={`${type}${tripId}`} />
+          <Comment targetId={tripId} type={type} />
         </Grid>
         {/* SIDEBAR */}
         <Grid item md={4} xs={12}>

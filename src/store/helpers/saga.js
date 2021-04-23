@@ -5,7 +5,10 @@ import {
   SIGN_UP,
   GET_USER,
   SET_ERROR,
-  UPLOAD_CAR_PHOTO
+  UPLOAD_CAR_PHOTO,
+  GET_COMMENTS,
+  DELETE_COMMENT,
+  ADD_COMMENT
 } from './constants';
 import { DONE, LOADING, FAIL } from '../constants';
 import {
@@ -13,7 +16,10 @@ import {
   authUser,
   getUser,
   signUp,
-  uploadPhoto
+  uploadPhoto,
+  getComments,
+  deleteComment,
+  addComment
 } from './api';
 import { createError } from 'lib/helpers';
 
@@ -137,6 +143,66 @@ function* uploadPhotoSaga({ payload }) {
   }
 }
 
+function* getCommentsSaga({ payload }) {
+  try {
+    yield put({
+      type: GET_COMMENTS + LOADING
+    });
+    const result = yield call(getComments, payload);
+    if (result) {
+      yield put({
+        type: GET_COMMENTS + DONE,
+        payload: result
+      });
+    }
+  } catch (e) {
+    yield put(createError(e));
+    yield put({
+      type: GET_COMMENTS + FAIL
+    });
+  }
+}
+
+function* deleteCommentSaga({ payload }) {
+  try {
+    yield put({
+      type: DELETE_COMMENT + LOADING
+    });
+    const result = yield call(deleteComment, payload);
+    if (result) {
+      yield put({
+        type: DELETE_COMMENT + DONE,
+        payload
+      });
+    }
+  } catch (e) {
+    yield put(createError(e));
+    yield put({
+      type: DELETE_COMMENT + FAIL
+    });
+  }
+}
+
+function* addCommentSaga({ payload }) {
+  try {
+    yield put({
+      type: ADD_COMMENT + LOADING
+    });
+    const result = yield call(addComment, payload);
+    if (result) {
+      yield put({
+        type: ADD_COMMENT + DONE,
+        payload: result
+      });
+    }
+  } catch (e) {
+    yield put(createError(e));
+    yield put({
+      type: ADD_COMMENT + FAIL
+    });
+  }
+}
+
 export default function* helpersSaga() {
   yield takeLatest(GET_CITIES, getCitiesSaga);
   yield takeLatest(AUTH_USER, authUserSaga);
@@ -144,4 +210,7 @@ export default function* helpersSaga() {
   yield takeLatest(SET_ERROR, setErrorSaga);
   yield takeLatest(GET_USER, getUserSaga);
   yield takeLatest(UPLOAD_CAR_PHOTO, uploadPhotoSaga);
+  yield takeLatest(GET_COMMENTS, getCommentsSaga);
+  yield takeLatest(DELETE_COMMENT, deleteCommentSaga);
+  yield takeLatest(ADD_COMMENT, addCommentSaga);
 }

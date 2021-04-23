@@ -4,7 +4,10 @@ import {
   AUTH_USER,
   GET_USER,
   SET_ERROR,
-  UPLOAD_CAR_PHOTO
+  UPLOAD_CAR_PHOTO,
+  GET_COMMENTS,
+  DELETE_COMMENT,
+  ADD_COMMENT
 } from './constants';
 import { DONE, LOADING, FAIL } from '../constants';
 
@@ -17,7 +20,9 @@ const initialState = {
   userLoading: false,
   uploadLoading: false,
   user: null,
-  error: null
+  error: null,
+  comments: null,
+  commentsLoading: false
 };
 
 export default handleActions({
@@ -93,4 +98,51 @@ export default handleActions({
       ...payload
     }
   }),
+  // GET COMMENTS
+  [GET_COMMENTS + LOADING]: state => ({
+    ...state,
+    commentsLoading: true,
+    comments: null
+  }),
+  [GET_COMMENTS + FAIL]: state => ({
+    ...state,
+    commentsLoading: false,
+    comments: null
+  }),
+  [GET_COMMENTS + DONE]: (state, { payload }) => ({
+    ...state,
+    commentsLoading: false,
+    comments: payload
+  }),
+  // DELETE COMMENT
+  [DELETE_COMMENT + LOADING]: state => ({
+    ...state,
+    commentsLoading: true
+  }),
+  [DELETE_COMMENT + FAIL]: state => ({
+    ...state,
+    commentsLoading: false
+  }),
+  [DELETE_COMMENT + DONE]: (state, { payload }) => ({
+    ...state,
+    commentsLoading: false,
+    comments: state.comments?.filter(item => item?.id !== payload) || []
+  }),
+  // ADD COMMENT
+  [ADD_COMMENT + LOADING]: state => ({
+    ...state,
+    commentsLoading: true
+  }),
+  [ADD_COMMENT + FAIL]: state => ({
+    ...state,
+    commentsLoading: false
+  }),
+  [ADD_COMMENT + DONE]: (state, { payload }) => ({
+    ...state,
+    commentsLoading: false,
+    comments: [
+      ...state.comments,
+      payload
+    ]
+  })
 }, initialState);

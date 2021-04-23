@@ -115,7 +115,7 @@ const User = () => {
           )}
         </Grid>
         <Grid item xs={12}>
-          <Comment id={`user${userId}`} />
+          <Comment targetId={userId} type="user" />
         </Grid>
       </Grid>
       <PhoneNumber open={isShow} onClose={() => showPhone(false)} user={user} />
