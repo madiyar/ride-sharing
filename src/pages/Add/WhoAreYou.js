@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { Card, CardContent, FormControlLabel, Grid, Radio, RadioGroup, Typography } from '@material-ui/core';
 
 const WhoAreYou = ({ control, user }) => (
-  <Grid item xs={4}>
+  <Grid item xs={12} md={4}>
     <Card>
       <CardContent>
         <Typography variant="h4">Сіз кімсіз?</Typography>

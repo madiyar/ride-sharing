@@ -56,18 +56,6 @@ const Header = ({ openSidebar, isMobile }) => {
             <Searchbar />
           </div>
           <div>
-            {/* <IconButton>
-              <Badge
-                color="primary"
-                variant="dot"
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <Icon.Bell />
-              </Badge>
-            </IconButton> */}
             <Button
               onClick={handleUserClick}
               size="large"

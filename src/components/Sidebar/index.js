@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => createStyles({
 }))
 
 const links = [
-  { label: 'Іздеу', to: '/', icon: <Icon.Map /> },
+  { label: 'Іздеу', to: '/', icon: <Icon.Search /> },
   { label: 'Қосу', to: '/add', icon: <Icon.PlusCircle /> },
 ];
 
@@ -38,12 +38,12 @@ const Sidebar = ({ location, isMobile, open, onClose }) => {
       classes={{ paper: !isMobile ? classes.drawer : '' }}
     >
       <List>
-        <ListItem>
+        <ListItem button to="/" component={Link}>
           <IconButton>
-            <Icon.Map />
+            <Icon.Map color="#0880AE" />
           </IconButton>
             {isMobile && (
-              <ListItemText>Жолаушы</ListItemText>
+              <ListItemText style={{ color: '#0880AE' }}>Rideshare</ListItemText>
             )}
         </ListItem>
       </List>

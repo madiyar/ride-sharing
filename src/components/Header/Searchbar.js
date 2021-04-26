@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress, InputAdornment, TextField, Typography } from '@material-ui/core';
+import { CircularProgress, InputAdornment, TextField, Typography, makeStyles } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCities } from 'store/helpers/actions';
@@ -8,6 +8,25 @@ import { history } from 'lib/helpers';
 
 let TIMER;
 const INTERVAL = 500;
+
+const useStyles = makeStyles((theme) => ({
+  focus: {
+    [theme.breakpoints.up('md')]: {
+      minWidth: 400,
+    },
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '100%',
+    },
+  },
+  default: {
+    [theme.breakpoints.up('md')]: {
+      minWidth: 200,
+    },
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '100%',
+    },
+  }
+}));
 
 const styles = {
   option: {
@@ -29,6 +48,7 @@ const Searchbar = () => {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [focus, setFocus] = useState(false);
+  const classes = useStyles();
 
   useEffect(() => {
     if (!data || !data?.length) {
@@ -63,7 +83,7 @@ const Searchbar = () => {
   };
 
   return (
-    <div style={{ minWidth: focus ? 400 : 200 }}>
+    <div className={focus ? classes.focus : classes.default}>
       <Autocomplete
         options={cities}
         id="search"

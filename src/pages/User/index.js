@@ -69,7 +69,7 @@ const User = () => {
           </Breadcrumbs>
         </Grid>
         {user?.photo && (
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9}>
             <Avatar
               variant="square"
               src={`${process.env.REACT_APP_API_URL}/${user?.photo}`}
@@ -78,9 +78,9 @@ const User = () => {
             />
           </Grid>
         )}
-        <Grid item xs={3} style={styles.userInfo}>
+        <Grid item xs={12} md={3} style={styles.userInfo}>
           <Avatar src={user?.avatar} style={styles.avatar} />
-          <Typography variant="h5">
+          <Typography variant="h5" style={{ textAlign: 'center' }}>
             {loading ? <Skeleton animation="wave" height={50} /> : `${user?.firstName} ${user?.lastName}`}
           </Typography>
           <ButtonBase
@@ -107,6 +107,7 @@ const User = () => {
                   component="span"
                   size="large"
                   startIcon={<Icon.Camera />}
+                  style={{ textAlign: 'center' }}
                 >
                   Көлік суретін жүктеу
                 </Button>

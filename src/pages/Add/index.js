@@ -56,7 +56,7 @@ const AddPage = ({ addTrip }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3} xs={8} style={{ margin: `0 auto` }}>
+      <Grid container spacing={3} xs={12} lg={8} style={{ margin: `0 auto` }}>
         <Header user={user} />
         <WhoAreYou control={control} user={user} />
         <City

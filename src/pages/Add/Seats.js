@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
 
 const Seats = ({ control, user }) => (
-  <Grid item xs={4}>
+  <Grid item xs={12} md={4}>
     <Card>
       <CardContent>
         <Typography variant="h4">Бос орын саны</Typography>

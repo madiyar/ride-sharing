@@ -4,7 +4,7 @@ import { DatePicker } from '@material-ui/pickers';
 import moment from 'moment';
 
 const Day = ({ value, setValue, user }) => (
-  <Grid item xs={4}>
+  <Grid item xs={12} md={4}>
     <Card>
       <CardContent>
         <Typography variant="h4">Қай күні?</Typography>

@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
 
 const Price = ({ control, user }) => (
-  <Grid item xs={4}>
+  <Grid item xs={12} md={4}>
     <Card>
       <CardContent>
         <Typography variant="h4">Бағасы</Typography>
